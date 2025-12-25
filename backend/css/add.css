@@ -1,0 +1,241 @@
+/* ===== Reset & Base ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+body {
+    background: #f4f6f9;
+}
+
+/* ===== Sidebar ===== */
+.sidebar {
+    width: 230px;
+    height: 100vh;
+    background: #111827;
+    color: #ffffff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 20px;
+}
+
+.sidebar .logo {
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar ul li {
+    margin-bottom: 15px;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: #cbd5e1;
+    padding: 10px;
+    display: block;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+.sidebar ul li a:hover,
+.sidebar ul li a.active {
+    background: #2563eb;
+    color: #ffffff;
+}
+
+/* ===== Main Content ===== */
+.main {
+    margin-left: 230px; /* same as sidebar width */
+    padding: 30px;
+    min-height: 100vh;
+}
+
+/* ===== Page Title ===== */
+.main h1 {
+    text-align: center;
+    font-size: 28px;
+    color: #111827;
+    margin-bottom: 30px;
+}
+
+/* ===== Flash / Success Message ===== */
+.flash-message {
+    background: #d1fae5;
+    color: #065f46;
+    padding: 12px 20px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    margin: 20px auto;
+    width: fit-content;
+    display: block;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+/* ===== Form Card ===== */
+form {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+    max-width: 500px;
+    margin: auto;
+}
+
+/* ===== Form Groups ===== */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #374151;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="file"] {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="file"]:focus {
+    border-color: #2563eb;
+    outline: none;
+}
+
+/* ===== Submit Button ===== */
+.btn-submit {
+    background: #16a34a;
+    color: #ffffff;
+    padding: 12px 0;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-submit:hover {
+    background: #15803d;
+}
+
+/* ===== Admin Table ===== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+}
+
+thead {
+    background: #2563eb;
+    color: #ffffff;
+}
+
+th, td {
+    padding: 14px 10px;
+    text-align: left;
+}
+
+tbody tr {
+    border-bottom: 1px solid #e5e7eb;
+}
+
+tbody tr:last-child {
+    border-bottom: none;
+}
+
+/* Table Buttons */
+.btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.btn-add {
+    background: #16a34a;
+    margin-bottom: 15px;
+}
+
+.btn-add:hover {
+    background: #15803d;
+}
+
+.btn-edit {
+    background: #2563eb;
+    margin-right: 5px;
+}
+
+.btn-edit:hover {
+    background: #1d4ed8;
+}
+
+.btn-delete {
+    background: #dc2626;
+}
+
+.btn-delete:hover {
+    background: #b91c1c;
+}
+
+/* ===== Table Header with Add Button ===== */
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+    .main {
+        margin-left: 0;
+        padding: 20px;
+    }
+
+    form {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .table-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .btn-add {
+        margin-top: 10px;
+        width: 100%;
+    }
+
+    th, td {
+        padding: 10px;
+    }
+}

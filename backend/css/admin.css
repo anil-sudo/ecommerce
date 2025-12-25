@@ -1,0 +1,101 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* ===== Page ===== */
+body {
+    background: #f4f6f9;
+}
+
+
+/* ===== Main Content ===== */
+.main {
+    margin-left: 230px; /* same as sidebar width */
+    padding: 30px;
+}
+
+/* ===== Table Header ===== */
+.table-header {
+    display: flex;
+    justify-content: space-between; /* heading left + button right */
+    align-items: flex-end;          /* button aligns with bottom of heading */
+    margin-bottom: 0;               /* no overlap */
+}
+
+.table-header h1 {
+    flex: 1;
+    text-align: center;             /* heading centered */
+    padding-bottom: 10px;           /* space above table */
+}
+
+/* ===== Add Button ===== */
+.btn-add {
+    background: #16a34a;
+    padding: 9px 16px;
+    font-size: 14px;
+    border-radius: 6px 6px 0 0;    /* visually touches table */
+    margin-bottom: 0;
+}
+
+/* ===== Table ===== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #ffffff;
+    border-radius: 0 0 10px 10px;   /* top border radius removed for button */
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+thead {
+    background: #2563eb;
+    color: #ffffff;
+}
+
+th, td {
+    padding: 14px;
+    text-align: center;
+}
+
+tbody tr {
+    border-bottom: 1px solid #e5e7eb;
+}
+
+tbody tr:hover {
+    background: #f9fafb;
+}
+
+/* ===== Product Image ===== */
+table img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
+
+/* ===== Buttons ===== */
+.btn {
+    padding: 7px 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    color: #ffffff;
+    font-size: 13px;
+}
+
+.btn-edit {
+    background: #2563eb;
+}
+
+.btn-delete {
+    background: #dc2626;
+    margin-left: 5px;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
