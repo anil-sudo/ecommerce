@@ -110,7 +110,6 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
 </head>
 <body>
 
-demo demo 
 <?php include '../includes/header.php'; ?>
 
 <?php if ($product): ?>
