@@ -7,8 +7,8 @@ $result = $conn->query($sql);
 
 $products = [];
 if($result && $result->num_rows > 0){
-    while($row = $result->fetch_assoc()){
-        $products[] = $row;
+    while($product = $result->fetch_assoc()){
+        $products[] = $product;
     }
 }
 
@@ -23,7 +23,7 @@ $bestSellProducts = array_slice($products, 4, 4);
 include '../database/dbconnection.php';
 
 // Handle Add to Cart
-include 'add_cart_adder.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -35,7 +35,10 @@ include 'add_cart_adder.php';
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
-    <?php include '../includes/header.php'; ?>
+    <?php 
+        include '../includes/header.php';
+        include 'add_cart_adder.php'; 
+     ?>
 
     <!-- hero-slider -->
     <section class="hero">
@@ -86,20 +89,22 @@ include 'add_cart_adder.php';
     <h2 class="section-title" style="text-align:center; margin:40px;">Featured Products</h2>
     <div class="products-container">
         <?php foreach($featuredProducts as $product): ?>
-        <div class="product-card">
-            <img src="../assets/images/<?php echo htmlspecialchars($product['image']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>">
-            <h3><?php echo htmlspecialchars($product['name']); ?></h3>
-            <div class="rating">★★★★★</div>
-            <div class="price-cart">
-                <p class="price">Rs.<?php echo number_format($product['price'], 2); ?></p>
-                <form method="post">
-                    <input type="hidden" name="name" value="<?php echo htmlspecialchars($product['name']); ?>">
-                    <input type="hidden" name="price" value="<?php echo $product['price']; ?>">
-                    <input type="hidden" name="image" value="<?php echo htmlspecialchars($product['image']); ?>">
-                    <button type="submit" name="cart" class="btn-cart">Add to Cart</button>
-                </form>
-            </div>
-        </div>
+        <a href="/e-commerce/frontend/product-detail.php?id=<?= $product['id'] ?>" style="text-decoration: none;">
+            <div class="product-card">
+                <img src="../assets/images/<?php echo htmlspecialchars($product['image']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>">
+                <h3><?php echo htmlspecialchars($product['name']); ?></h3>
+                <div class="rating">★★★★★</div>
+                <div class="price-cart">
+                    <p class="price">Rs.<?php echo number_format($product['price'], 2); ?></p>
+                    <form method="post">
+                        <input type="hidden" name="name" value="<?php echo htmlspecialchars($product['name']); ?>">
+                        <input type="hidden" name="price" value="<?php echo $product['price']; ?>">
+                        <input type="hidden" name="image" value="<?php echo htmlspecialchars($product['image']); ?>">
+                        <button type="submit" name="cart" class="btn-cart">Add to Cart</button>
+                    </form>
+                </div>
+            </div>    
+        </a>
         <?php endforeach; ?>
     </div>
 </section>
@@ -118,20 +123,22 @@ include 'add_cart_adder.php';
     <h2 class="section-title" style="text-align:center; margin:40px;">Best Sellers</h2>
     <div class="best-sellers-container">
         <?php foreach($bestSellProducts as $product): ?>
-        <div class="product-card">
-            <img src="../assets/images/<?php echo htmlspecialchars($product['image']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>">
-            <h3><?php echo htmlspecialchars($product['name']); ?></h3>
-            <div class="rating">★★★★★</div>
-            <div class="price-cart">
-                <p class="price">Rs.<?php echo number_format($product['price'], 2); ?></p>
-                <form method="post">
-                    <input type="hidden" name="name" value="<?php echo htmlspecialchars($product['name']); ?>">
-                    <input type="hidden" name="price" value="<?php echo $product['price']; ?>">
-                    <input type="hidden" name="image" value="<?php echo htmlspecialchars($product['image']); ?>">
-                    <button type="submit" name="cart" class="btn-cart">Add to Cart</button>
-                </form>
-            </div>
-        </div>
+        <a href="/e-commerce/frontend/product-detail.php?id=<?= $product['id'] ?>" style="text-decoration: none;">
+            <div class="product-card">
+                <img src="../assets/images/<?php echo htmlspecialchars($product['image']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>">
+                <h3><?php echo htmlspecialchars($product['name']); ?></h3>
+                <div class="rating">★★★★★</div>
+                <div class="price-cart">
+                    <p class="price">Rs.<?php echo number_format($product['price'], 2); ?></p>
+                    <form method="post">
+                        <input type="hidden" name="name" value="<?php echo htmlspecialchars($product['name']); ?>">
+                        <input type="hidden" name="price" value="<?php echo $product['price']; ?>">
+                        <input type="hidden" name="image" value="<?php echo htmlspecialchars($product['image']); ?>">
+                        <button type="submit" name="cart" class="btn-cart">Add to Cart</button>
+                    </form>
+                </div>
+            </div>    
+        </a>
         <?php endforeach; ?>
     </div>
 </section>

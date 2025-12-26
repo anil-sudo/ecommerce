@@ -1,9 +1,9 @@
 <?php
 
-$servername = "db";
-$username = "ecommerce_user";
-$password = "ecommerce_pass";
-$dbname = "ecommerce_db";
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "e-commerce";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {

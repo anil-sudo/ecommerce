@@ -1,7 +1,12 @@
 
 <?php
+
 // Handle Add to Cart
 if (isset($_POST['cart'])) {
+    if(!isset($_SESSION['username'])) {
+        header("location:../frontend/login.php");
+    }
+
     $name  = $_POST['name'] ?? '';
     $price = $_POST['price'] ?? 0;
     $image = $_POST['image'] ?? '';

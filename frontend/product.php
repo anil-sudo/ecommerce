@@ -1,8 +1,7 @@
 <?php
 include '../database/dbconnection.php';
 
-// Handle Add to Cart
-include 'add_cart_adder.php';
+
 
 // Fetch all products
 $sql = "SELECT id, name, price, image FROM products ORDER BY id ASC";
@@ -28,7 +27,10 @@ while ($row = $result->fetch_assoc()) {
 </head>
 <body>
 
-<?php include('../includes/header.php'); ?>
+   <?php 
+        include '../includes/header.php';
+        include 'add_cart_adder.php'; 
+     ?>
 
 <section class="products-page">
     <div class="container">

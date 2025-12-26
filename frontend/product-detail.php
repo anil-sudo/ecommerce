@@ -1,6 +1,8 @@
 <?php
 include '../database/dbconnection.php';
+include '../includes/header.php';
 include 'add_cart_adder.php';
+
 
 $product = null;
 
@@ -109,8 +111,6 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
     </style>
 </head>
 <body>
-
-<?php include '../includes/header.php'; ?>
 
 <?php if ($product): ?>
 <section class="product-detail">
