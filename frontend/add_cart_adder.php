@@ -7,7 +7,7 @@ if (isset($_POST['cart'])) {
     $image = $_POST['image'] ?? '';
     $quantity = $_POST['quantity'] ?? 1;
 
-    if ($name && $price > 0 && $quantity > 1 && $image) {
+    if ($name && $price > 0 && $quantity > 0 && $image) {
         $checkStmt = $conn->prepare("SELECT id, quantity FROM cart WHERE name = ?");
         $checkStmt->bind_param("s", $name);
         $checkStmt->execute();
