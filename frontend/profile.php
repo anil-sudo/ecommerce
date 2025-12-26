@@ -26,7 +26,7 @@ $user = $stmt->get_result()->fetch_assoc();
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:"Segoe UI",sans-serif;}
 body{background:#f0f2f5;color:#111827;transition:.3s;}
-body.dark-mode{background:#111827;color:#f4f4f4;}
+
 
 .container{
     max-width:500px;
@@ -38,7 +38,7 @@ body.dark-mode{background:#111827;color:#f4f4f4;}
     text-align:center;
     padding-bottom:30px;
 }
-body.dark-mode .container{background:#1f2937;}
+
 
 .header{
     background:#2874f0;
@@ -47,7 +47,7 @@ body.dark-mode .container{background:#1f2937;}
     border-bottom-left-radius:15px;
     border-bottom-right-radius:15px;
 }
-body.dark-mode .header{background:#2563eb;}
+
 
 .avatar{
     width:120px;
@@ -63,7 +63,7 @@ body.dark-mode .header{background:#2563eb;}
     box-shadow:0 4px 20px rgba(0,0,0,.2);
     transition:.3s;
 }
-body.dark-mode .avatar{background:#2563eb;}
+
 
 .header h2{margin:10px 0 5px;}
 .header p{opacity:.9;font-size:16px;}
@@ -85,7 +85,7 @@ body.dark-mode .avatar{background:#2563eb;}
 .info-box label{font-size:12px;color:#777;display:block;margin-bottom:3px;}
 body.dark-mode .info-box label{color:#cbd5e1;}
 .info-box p{font-size:16px;font-weight:500;}
-body.dark-mode .info-box p{color:#f4f4f4;}
+
 
 .card{
     margin:20px;
@@ -95,7 +95,7 @@ body.dark-mode .info-box p{color:#f4f4f4;}
     box-shadow:0 5px 15px rgba(0,0,0,.05);
     transition:.3s;
 }
-body.dark-mode .card{background:#111827;}
+
 
 .card:hover{
     transform:translateY(-5px);
@@ -120,10 +120,7 @@ button{
 .theme-btn{background:#2874f0;color:#fff;}
 .theme-btn:hover{background:#1d4ed8;}
 
-.dark-toggle{
-    margin-top:15px;
-}
-.dark-toggle input{margin-left:10px;width:18px;height:18px;cursor:pointer;}
+
 </style>
 <link rel="stylesheet" href="../assets/css/style.css">
 </head>
@@ -150,17 +147,12 @@ button{
         <p>Active</p>
     </div>
 
-    <!-- Dark Mode Toggle -->
-    <div class="dark-toggle">
-        <label>Dark Mode
-            <input type="checkbox" id="darkToggle">
-        </label>
-    </div>
+
 
     <!-- Actions -->
     <div class="actions">
-        <button class="theme-btn" onclick="changeColor()">Change Theme</button>
-        <a href="../auth/logout.php"><button class="logout-btn">Logout</button></a>
+     
+        <a href="../database/logout.php"><button class="logout-btn">Logout</button></a>
     </div>
 
 </div>
@@ -168,29 +160,7 @@ button{
 include '../includes/footer.php';
 ?>
 
-<script>
-// Dark Mode
-const toggle = document.getElementById('darkToggle');
-if(localStorage.getItem('darkMode') === 'enabled'){
-    document.body.classList.add('dark-mode');
-    toggle.checked = true;
-}
-toggle.addEventListener('change', ()=>{
-    if(toggle.checked){
-        document.body.classList.add('dark-mode');
-        localStorage.setItem('darkMode','enabled');
-    } else{
-        document.body.classList.remove('dark-mode');
-        localStorage.setItem('darkMode','disabled');
-    }
-});
 
-// Change Avatar Color (Frontend only)
-function changeColor(){
-    const colors = ['#2874f0','#16a34a','#7c3aed','#ea580c'];
-    document.querySelector('.avatar').style.background = colors[Math.floor(Math.random()*colors.length)];
-}
-</script>
 
 </body>
 </html>

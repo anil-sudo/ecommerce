@@ -73,7 +73,7 @@ include 'session_check.php';?>
         </div>
 
         <div class="form-group">
-            <label>Price ($)</label>
+            <label>Price (Rs.)</label>
             <input type="number" step="0.01" name="price" value="<?php echo $product['price']; ?>" required>
         </div>
 

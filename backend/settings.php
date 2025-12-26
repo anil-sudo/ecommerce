@@ -3,9 +3,9 @@ session_start();
 include 'session_check.php';
 include '../database/dbconnection.php';
 
-/* ===============================
-   VERIFY LOGIN SESSION
-================================ */
+
+//    VERIFY LOGIN SESSION
+
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit;
@@ -13,9 +13,9 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = (int)$_SESSION['user_id'];
 
-/* ===============================
-   FETCH ADMIN INFO
-================================ */
+
+//    FETCH ADMIN INFO
+
 $stmt = $conn->prepare("SELECT username, email FROM users WHERE id = ?");
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
@@ -93,14 +93,7 @@ h1{margin-bottom:20px}
     </div>
 </div>
 
-<!-- Theme -->
-<div class="form-section">
-    <h2>Theme Preferences</h2>
-    <label>
-        <input type="checkbox" id="darkModeToggle">
-        Enable Dark Mode
-    </label>
-</div>
+
 
 <!-- Logout -->
 <div class="form-section">
@@ -111,24 +104,7 @@ h1{margin-bottom:20px}
 
 </div>
 
-<script>
-const toggle = document.getElementById('darkModeToggle');
 
-if (localStorage.getItem('darkMode') === 'enabled') {
-    document.body.classList.add('dark-mode');
-    toggle.checked = true;
-}
-
-toggle.addEventListener('change', () => {
-    if (toggle.checked) {
-        document.body.classList.add('dark-mode');
-        localStorage.setItem('darkMode','enabled');
-    } else {
-        document.body.classList.remove('dark-mode');
-        localStorage.setItem('darkMode','disabled');
-    }
-});
-</script>
 
 </body>
 </html>

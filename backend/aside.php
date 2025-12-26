@@ -2,8 +2,6 @@
     <h2><i class="fa-solid fa-cubes"></i> ShopEase</h2>
     <nav>
         <a href="admin.php" class="active"><i class="fa-solid fa-gauge"></i> Dashboard</a>
-        <a href="#"><i class="fa-solid fa-box"></i> Products</a>
-        <a href="#"><i class="fa-solid fa-bag-shopping"></i> Orders</a>
         <a href="users.php"><i class="fa-solid fa-users"></i> Users</a>
         <a href="settings.php"><i class="fa-solid fa-gear"></i> Settings</a>
     </nav>

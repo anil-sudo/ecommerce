@@ -18,7 +18,7 @@ if (isset($_POST['login'])) {
 
         if (password_verify($password, $user['password'])) {
 
-            // ✅ STORE SESSION PROPERLY
+            //  STORE SESSION PROPERLY
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
 

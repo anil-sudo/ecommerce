@@ -1,36 +1,27 @@
 <?php
-// error_reporting(E_ALL);
-// ini_set('display_errors', 1);
-
 include '../database/dbconnection.php';
 include '../includes/header.php';
 
-/* ===============================
-   HANDLE UPDATE
-================================ */
+/* HANDLE UPDATE */
 if (isset($_POST['update'])) {
     $id  = (int)$_POST['cart_id'];
     $qty = (int)$_POST['quantity'];
     if ($qty < 1) $qty = 1;
 
-    $conn->query("UPDATE cart SET quantity=$qty WHERE id=$id");
+    $conn->query("UPDATE cart SET quantity = $qty WHERE id = $id");
     header("Location: cart.php");
     exit;
 }
 
-/* ===============================
-   HANDLE REMOVE
-================================ */
+/* HANDLE REMOVE */
 if (isset($_POST['remove'])) {
     $id = (int)$_POST['cart_id'];
-    $conn->query("DELETE FROM cart WHERE id=$id");
+    $conn->query("DELETE FROM cart WHERE id = $id");
     header("Location: cart.php");
     exit;
 }
 
-/* ===============================
-   FETCH CART DATA
-================================ */
+/* FETCH CART DATA */
 $sql = "SELECT id, name, image, price, quantity FROM cart";
 $result = $conn->query($sql);
 
@@ -57,9 +48,9 @@ button{padding:6px 12px;border:none;border-radius:4px;cursor:pointer}
 .update{background:#3b82f6;color:#fff}
 .remove{background:#ef4444;color:#fff}
 .total{text-align:right;margin-top:20px;font-weight:bold;font-size:18px}
-
 </style>
-<link rel = "stylesheet" href="../assets/css/style.css">
+
+<link rel="stylesheet" href="../assets/css/style.css">
 </head>
 
 <body>
@@ -89,7 +80,7 @@ while ($row = $result->fetch_assoc()):
         <img src="../assets/images/<?php echo $row['image']; ?>">
     </td>
     <td><?php echo $row['name']; ?></td>
-    <td>Rs. <?php echo $row['price']; ?></td>
+    <td>Rs. <?php echo number_format($row['price']); ?></td>
     <td>
         <form method="post">
             <input type="hidden" name="cart_id" value="<?php echo $row['id']; ?>">
@@ -97,7 +88,7 @@ while ($row = $result->fetch_assoc()):
             <button name="update" class="update">Update</button>
         </form>
     </td>
-    <td>Rs. <?php echo $sub; ?></td>
+    <td>Rs. <?php echo number_format($sub); ?></td>
     <td>
         <form method="post">
             <input type="hidden" name="cart_id" value="<?php echo $row['id']; ?>">
@@ -109,7 +100,7 @@ while ($row = $result->fetch_assoc()):
 </table>
 
 <div class="total">
-Grand Total: Rs.<?php echo $grand; ?>
+Grand Total: Rs. <?php echo number_format($grand); ?>
 </div>
 
 <?php else: ?>
