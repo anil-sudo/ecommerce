@@ -89,7 +89,7 @@ while ($row = $result->fetch_assoc()):
         <img src="../assets/images/<?php echo $row['image']; ?>">
     </td>
     <td><?php echo $row['name']; ?></td>
-    <td>$<?php echo $row['price']; ?></td>
+    <td>Rs. <?php echo $row['price']; ?></td>
     <td>
         <form method="post">
             <input type="hidden" name="cart_id" value="<?php echo $row['id']; ?>">
@@ -97,7 +97,7 @@ while ($row = $result->fetch_assoc()):
             <button name="update" class="update">Update</button>
         </form>
     </td>
-    <td>$<?php echo $sub; ?></td>
+    <td>Rs. <?php echo $sub; ?></td>
     <td>
         <form method="post">
             <input type="hidden" name="cart_id" value="<?php echo $row['id']; ?>">
@@ -109,7 +109,7 @@ while ($row = $result->fetch_assoc()):
 </table>
 
 <div class="total">
-Grand Total: $<?php echo $grand; ?>
+Grand Total: Rs.<?php echo $grand; ?>
 </div>
 
 <?php else: ?>
