@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 25, 2025 at 07:04 PM
+-- Generation Time: Dec 26, 2025 at 10:15 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `e-commerce`
+-- Database: `ecommerce_db`
 --
 
 -- --------------------------------------------------------
@@ -41,7 +41,11 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id`, `name`, `image`, `quantity`, `added_on`, `price`) VALUES
-(20, 'kjhasdbkjads', '1766601748_compressed-pexels-tranmautritam-326514 (1).webp', 10, '2025-12-25 17:25:22', 50.00);
+(27, 'Dell Inspiron 15 3530 i5 13th Gen 16GB 512GB', '1766779890_Dell Inspiron 15 3530 i5 13th Gen 16GB 512GB.jpg', 1, '2025-12-26 20:21:07', 50000.00),
+(28, 'DELL INSPIRON 15 RYZEN 5 5500U 8GB 512GB', '1766779928_DELL INSPIRON 15 RYZEN 5 5500U 8GB 512GB.jpg', 2, '2025-12-26 20:21:08', 550000.00),
+(29, 'Dell Inspiron 15 5559', '1766779952_Dell Inspiron 15 5559.jpg', 1, '2025-12-26 20:33:18', 80000.00),
+(30, 'Dell Inspiron 7430 i7 13th Generation (1355U)', '1766780133_Dell Inspiron 7430 i7 13th Generation (1355U.jpg', 1, '2025-12-26 20:33:21', 75000.00),
+(31, 'Dell latitude 3440 i5 13th Laptop', '1766780361_Dell latitude 3440 i5 13th Laptop.jpg', 1, '2025-12-26 20:33:23', 95000.00);
 
 -- --------------------------------------------------------
 
@@ -62,20 +66,26 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `price`, `image`, `created_at`) VALUES
-(8, 'jyjhf', 4444.00, '1766601546_pexels-karola-g-5632402.jpg', '2025-12-24 18:39:06'),
-(9, 'pushpa', 10000.00, '1766601663_pexels-karola-g-5632402.jpg', '2025-12-24 18:41:03'),
-(10, 'kjhasdbkjads', 50.00, '1766601748_compressed-pexels-tranmautritam-326514 (1).webp', '2025-12-24 18:42:28'),
-(11, 'dadad', 600.00, '1766601813_pexels-cottonbro-3584998_optimized_100.webp', '2025-12-24 18:43:33'),
-(12, 'hfhf', 600.00, '1766601869_pexels-olly-920381_optimized_100.webp', '2025-12-24 18:44:29'),
-(13, 'hgchgf', 300.00, '1766602024_pexels-olia-danilevich-4974915.webp', '2025-12-24 18:47:04'),
-(14, 'jhgjh', 666.00, '1766602116_pexels-karola-g-5632402.jpg', '2025-12-24 18:48:36'),
-(15, 'aykhads', 90000.00, '1766602244_pexels-divinetechygirl-1181248_optimized_100.webp', '2025-12-24 18:50:44'),
-(16, 'yyyy', 8098.00, '1766602265_pexels-olly-842548_optimized_100.webp', '2025-12-24 18:51:05'),
-(17, 'hgdfgf', 8098.00, '1766602332_pexels-olly-842548_optimized_100.webp', '2025-12-24 18:52:12'),
-(18, 'kgf', 6666.00, '1766602429_pexels-olly-935743.jpg', '2025-12-24 18:53:49'),
-(19, 'anil', 66464.00, '1766602519_pexels-tranmautritam-326514.webp', '2025-12-24 18:55:19'),
-(20, 'herooo', 10000.00, '1766604475_pexels-cottonbro-3584998.webp', '2025-12-24 19:27:55'),
-(21, 'krisha', 10000.00, '1766680939_pexels-silverkblack-23496705.webp', '2025-12-25 16:42:19');
+(23, 'Dell Inspiron 15 3530 i5 13th Gen 16GB 512GB', 50000.00, '1766779890_Dell Inspiron 15 3530 i5 13th Gen 16GB 512GB.jpg', '2025-12-26 20:11:30'),
+(24, 'DELL INSPIRON 15 RYZEN 5 5500U 8GB 512GB', 55000.00, '1766779928_DELL INSPIRON 15 RYZEN 5 5500U 8GB 512GB.jpg', '2025-12-26 20:12:08'),
+(25, 'Dell Inspiron 15 5559', 80000.00, '1766779952_Dell Inspiron 15 5559.jpg', '2025-12-26 20:12:32'),
+(26, 'Dell Inspiron 3501 ', 40000.00, '1766779988_Dell Inspiron 3501 Price in Nepal.jpg', '2025-12-26 20:13:08'),
+(27, 'Buy Dell G15 5530 (13th Gen i7-13650HX, 16GB RAM', 85000.00, '1766780086_Buy Dell G15 5530 (13th Gen i7-13650HX, 16GB RAM.jpg', '2025-12-26 20:14:46'),
+(28, 'Dell Inspiron 7430 i7 13th Generation (1355U)', 75000.00, '1766780133_Dell Inspiron 7430 i7 13th Generation (1355U.jpg', '2025-12-26 20:15:33'),
+(29, 'Dell Inspiron 3520 best office laptop', 80000.00, '1766780173_Dell Inspiron 3520 best office laptop.jpg', '2025-12-26 20:16:13'),
+(30, 'DELL LATITUDE 3320 INTEL CORE™ 17-11TH GEN', 100000.00, '1766780210_DELL LATITUDE 3320 INTEL CORE™ 17-11TH GEN.jpg', '2025-12-26 20:16:50'),
+(31, 'Dell Inspiron 7430 i7 13th Generation (1355U', 85000.00, '1766780283_Dell Inspiron 7430 i7 13th Generation (1355U.jpg', '2025-12-26 20:18:03'),
+(32, 'dell laptop i5', 66000.00, '1766780313_dell laptop i5.jpg', '2025-12-26 20:18:33'),
+(33, 'Dell latitude 3440 i5 13th Laptop', 95000.00, '1766780361_Dell latitude 3440 i5 13th Laptop.jpg', '2025-12-26 20:19:21'),
+(34, 'Dell Pro 14 Core 5 (PC14250)', 55000.00, '1766780394_Dell Pro 14 Core 5 (PC14250).jpg', '2025-12-26 20:19:54'),
+(35, 'Dell Vosteo 15 3520(i7)', 88000.00, '1766780421_Dell Vosteo 15 3520(i7).jpg', '2025-12-26 20:20:21'),
+(36, 'Buy Latest Dell 13th Gen Models', 77000.00, '1766780702_Buy Latest Dell 13th Gen Models.jpg', '2025-12-26 20:25:02'),
+(37, 'Dell 16 Plus (2-in-1) Laptop With Ultra 7, 2k Touch', 110000.00, '1766780720_Dell 16 Plus (2-in-1) Laptop With Ultra 7, 2k Touch.jpg', '2025-12-26 20:25:20'),
+(38, 'Dell Inspiron 15 3542 ', 45000.00, '1766780746_Dell Inspiron 15 3542 - Mero Laptop.jpg', '2025-12-26 20:25:46'),
+(39, 'Dell Latitude 5450 Core Ultra 7 165U laptop', 88000.00, '1766780767_Dell Latitude 5450 Core Ultra 7 165U laptop.jpg', '2025-12-26 20:26:07'),
+(40, 'Dell Latitude 7430', 99999.00, '1766780786_Dell Latitude 7430.jpg', '2025-12-26 20:26:26'),
+(41, 'Dell XPS 13 7390', 66000.00, '1766780801_Dell XPS 13 7390.jpg', '2025-12-26 20:26:41'),
+(42, 'Dell XPS 15 9560', 56000.00, '1766780830_Dell XPS 15 9560.jpg', '2025-12-26 20:27:10');
 
 -- --------------------------------------------------------
 
@@ -101,7 +111,8 @@ INSERT INTO `register_user` (`id`, `username`, `email`, `password`, `created_at`
 (3, '123456', 'apple@gmail.com', '$2y$10$ol62pTtBitUrpQDx/46EPeg211K5zpZuA0mP1XIywhvBdZP1CvjIm', '2025-12-23 22:48:36'),
 (22, 'anilstha', 'example1@gmail.com', '$2y$10$Je9PXl39eyUazUJgNGLh3.PgVSMqAsJdfppC7CH94WcCwxh6uO6zS', '2025-12-23 23:13:38'),
 (33, 'krish', 'ani33l@example.com', '$2y$10$jB93N9zBoJ112As4mb2t3OjEpAkjZ7.iEbh/c.KXaP6WzqxMoxzx6', '2025-12-23 23:25:02'),
-(34, 'harilal', 'apple11@gmail.com', '$2y$10$GTpjUJYFre3pj2S3PVtHZeZdaWDpEeNOoh.uRmdgoybHrj4/1Nyii', '2025-12-24 02:21:25');
+(34, 'harilal', 'apple11@gmail.com', '$2y$10$GTpjUJYFre3pj2S3PVtHZeZdaWDpEeNOoh.uRmdgoybHrj4/1Nyii', '2025-12-24 02:21:25'),
+(35, 'krishna', 'anilstha663@gmail.com', '$2y$10$55CQ4iSntIzYYshQzNh07eI7WFenzjQYRyYv4ygHj/QbYTRhhZzR.', '2025-12-26 19:12:04');
 
 -- --------------------------------------------------------
 
@@ -167,19 +178,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `register_user`
 --
 ALTER TABLE `register_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `users`
