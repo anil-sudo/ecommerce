@@ -48,9 +48,19 @@ button{padding:6px 12px;border:none;border-radius:4px;cursor:pointer}
 .update{background:#3b82f6;color:#fff}
 .remove{background:#ef4444;color:#fff}
 .total{text-align:right;margin-top:20px;font-weight:bold;font-size:18px}
+.checkout-btn{background:#10b981;color:#fff;padding:10px 20px;border:none;border-radius:5px;cursor:pointer;margin-top:15px; float:right;}
+.checkout-btn:hover{background:#059669;}
 </style>
 
 <link rel="stylesheet" href="../assets/css/style.css">
+
+<script>
+// Confirmation popup before checkout
+function confirmCheckout() {
+    return confirm("Are you sure you want to purchase all items in the cart?");
+}
+</script>
+
 </head>
 
 <body>
@@ -102,6 +112,12 @@ while ($row = $result->fetch_assoc()):
 <div class="total">
 Grand Total: Rs. <?php echo number_format($grand); ?>
 </div>
+
+<!-- Checkout Form -->
+<!-- Checkout Form -->
+<form method="post" action="proceed.php" onsubmit="return confirm('Are you sure you want to proceed?');">
+    <button type="submit" name="proceed" class="checkout-btn">Proceed</button>
+</form>
 
 <?php else: ?>
 <p align="center">Cart is empty</p>

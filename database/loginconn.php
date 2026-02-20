@@ -21,6 +21,7 @@ if (isset($_POST['login'])) {
             //  STORE SESSION PROPERLY
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
+             
 
             header("Location: ../frontend/index.php");
             exit();

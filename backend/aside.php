@@ -2,7 +2,9 @@
     <h2><i class="fa-solid fa-cubes"></i> ShopEase</h2>
     <nav>
         <a href="admin.php" class="active"><i class="fa-solid fa-gauge"></i> Dashboard</a>
-        <a href="users.php"><i class="fa-solid fa-users"></i> Users</a>
+        <a href="users.php"><i class="fa-solid fa-users"></i> Admin Users</a>
+        <a href="customer.php"><i class="fa-solid fa-users"></i> Customers</a>
+        <a href="admin_order.php"><i class="fa-solid fa-users"></i> Order management</a>
         <a href="settings.php"><i class="fa-solid fa-gear"></i> Settings</a>
     </nav>
     <button class="collapse-btn" onclick="toggleSidebar()"><i class="fa-solid fa-angle-left"></i></button>
