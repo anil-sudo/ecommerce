@@ -1,10 +1,21 @@
+<?php
+    include '../database/dbconnection.php';
+
+    if (isset($_SESSION['role'])) {
+        $isSuperAdmin = $_SESSION['role'] === 'admin' ? true : false;        
+    } else {    
+        header("Location: ../frontend/index.php");
+    }
+?>
 <aside class="sidebar" id="sidebar">
     <h2><i class="fa-solid fa-cubes"></i> ShopEase</h2>
     <nav>
         <a href="admin.php" class="active"><i class="fa-solid fa-gauge"></i> Dashboard</a>
-        <a href="users.php"><i class="fa-solid fa-users"></i> Admin Users</a>
-        <a href="customer.php"><i class="fa-solid fa-users"></i> Customers</a>
-        <a href="admin_order.php"><i class="fa-solid fa-users"></i> Order management</a>
+        <?php if ($isSuperAdmin): ?>
+            <a href="users.php"><i class="fa-solid fa-users"></i> Admin Users</a>
+            <a href="customer.php"><i class="fa-solid fa-users"></i> Customers</a>
+            <a href="orders.php"><i class="fa-solid fa-users"></i> Order Management</a>
+        <?php endif; ?>
         <a href="settings.php"><i class="fa-solid fa-gear"></i> Settings</a>
     </nav>
     <button class="collapse-btn" onclick="toggleSidebar()"><i class="fa-solid fa-angle-left"></i></button>

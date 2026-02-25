@@ -38,7 +38,7 @@ include '../database/dbconnection.php';
     <?php 
         include '../includes/header.php';
         include 'add_cart_adder.php'; 
-     ?>
+    ?>
 
     <!-- hero-slider -->
     <section class="hero">
@@ -81,33 +81,29 @@ include '../database/dbconnection.php';
         setInterval(showSlide, 3000);
     </script>
 
-    <!-- featured-products -->
-</section>
-
-<!-- Featured Products -->
-<section class="featured-products">
-    <h2 class="section-title" style="text-align:center; margin:40px;">Featured Products</h2>
-    <div class="products-container">
-        <?php foreach($featuredProducts as $product): ?>
-        <a href="/e-commerce/frontend/product-detail.php?id=<?= $product['id'] ?>" style="text-decoration: none;">
-            <div class="product-card">
-                <img src="../assets/images/<?php echo htmlspecialchars($product['image']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>">
-                <h3><?php echo htmlspecialchars($product['name']); ?></h3>
-                <div class="rating">★★★★★</div>
-                <div class="price-cart">
-                    <p class="price">Rs.<?php echo number_format($product['price'], 2); ?></p>
-                    <form method="post">
-                        <input type="hidden" name="name" value="<?php echo htmlspecialchars($product['name']); ?>">
-                        <input type="hidden" name="price" value="<?php echo $product['price']; ?>">
-                        <input type="hidden" name="image" value="<?php echo htmlspecialchars($product['image']); ?>">
-                        <button type="submit" name="cart" class="btn-cart">Add to Cart</button>
-                    </form>
-                </div>
-            </div>    
-        </a>
-        <?php endforeach; ?>
-    </div>
-</section>
+    <!-- Featured Products -->
+    <section class="featured-products">
+        <h2 class="section-title" style="text-align:center; margin:40px;">Featured Products</h2>
+        <div class="products-container">
+            <?php foreach($featuredProducts as $product): ?>
+                <a href="/e-commerce/frontend/product-detail.php?id=<?= $product['id'] ?>" style="text-decoration: none;">
+                    <div class="product-card">
+                        <img src="../assets/images/<?php echo htmlspecialchars($product['image']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>">
+                        <h3><?php echo htmlspecialchars($product['name']); ?></h3>
+                        <div class="rating">★★★★★</div>
+                        <div class="price-cart">
+                            <p class="price">Rs.<?php echo number_format($product['price'], 2); ?></p>
+                            <form method="post">
+                                <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                                <input type="hidden" name="quantity" value="1">
+                                <button type="submit" name="cart" class="btn-cart">Add to Cart</button>
+                            </form>
+                        </div>
+                    </div>    
+                </a>
+            <?php endforeach; ?>
+        </div>
+    </section>
 
     <!-- promo-banner -->
     <section class="promo-banner">
@@ -130,10 +126,10 @@ include '../database/dbconnection.php';
                 <div class="rating">★★★★★</div>
                 <div class="price-cart">
                     <p class="price">Rs.<?php echo number_format($product['price'], 2); ?></p>
+                    
                     <form method="post">
-                        <input type="hidden" name="name" value="<?php echo htmlspecialchars($product['name']); ?>">
-                        <input type="hidden" name="price" value="<?php echo $product['price']; ?>">
-                        <input type="hidden" name="image" value="<?php echo htmlspecialchars($product['image']); ?>">
+                        <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                        <input type="hidden" name="quantity" value="1">
                         <button type="submit" name="cart" class="btn-cart">Add to Cart</button>
                     </form>
                 </div>

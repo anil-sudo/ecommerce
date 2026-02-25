@@ -1,7 +1,7 @@
 <?php
 // Initialize variables
-$name = $email = "";
-$nameError = $emailError = $passwordError = "";
+$name = $email = $phone = "";
+$nameError = $emailError = $passwordError = $phoneError = "";
 
 // Include database connection
 include 'dbconnection.php';
@@ -11,6 +11,8 @@ if (isset($_POST['submit'])) {
     // Get values safely
     $name = trim($_POST['username']);
     $email = trim($_POST['email']);
+    $phone = trim($_POST['phone']);
+
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
 
@@ -31,6 +33,15 @@ if (isset($_POST['submit'])) {
         $isValid = false;
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $emailError = "Invalid email format";
+        $isValid = false;
+    }
+
+    // Phone validation
+    if (empty($phone)) {
+        $phoneError = "Phone number is required";
+        $isValid = false;
+    } elseif (!preg_match("/^[0-9]{10,10}$/", $phone)) {
+        $phoneError = "Invalid phone number (10 digits only)";
         $isValid = false;
     }
 
@@ -57,15 +68,29 @@ if (isset($_POST['submit'])) {
         }
 
         mysqli_stmt_close($stmt);
+
+        if ($isValid) {
+            $checkPhone = "SELECT id FROM register_user WHERE phone = ?";
+            $stmt = mysqli_prepare($conn, $checkPhone);
+            mysqli_stmt_bind_param($stmt, "s", $phone);
+            mysqli_stmt_execute($stmt);
+            mysqli_stmt_store_result($stmt);
+
+            if (mysqli_stmt_num_rows($stmt) > 0) {
+                $phoneError = "Phone number already registered";
+                $isValid = false;
+            }
+            mysqli_stmt_close($stmt);
+        }
     }
 
     // Insert into database if valid
     if ($isValid) {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-        $sql = "INSERT INTO register_user (username, email, password) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO register_user (username, email, phone, password) VALUES (?, ?, ?, ?)";
         $stmt = mysqli_prepare($conn, $sql);
-        mysqli_stmt_bind_param($stmt, "sss", $name, $email, $hashedPassword);
+        mysqli_stmt_bind_param($stmt, "ssss", $name, $email, $phone, $hashedPassword);
 
         if (mysqli_stmt_execute($stmt)) {
             echo "<script>alert('Registration successful!'); window.location='login.php';</script>";

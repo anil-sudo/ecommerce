@@ -32,4 +32,7 @@ if (isset($_POST['login'])) {
         $error = "User not found!";
     }
 }
+if (isset($_SESSION['user_id'])) {
+    echo $_SESSION['user_id'];
+}
 ?>

@@ -31,6 +31,10 @@
             <input type="email" id="email" name="email" placeholder="Enter your email" value = "<?php echo htmlspecialchars($email); ?>">
              <span style="color:red"><?php echo $emailError; ?></span><br>
 
+             <label for="phone">Phone</label>
+            <input type="text" id="phone" name="phone" placeholder="Enter your phone number" value="<?php echo htmlspecialchars($phone); ?>">
+            <span style="color:red"><?php echo $phoneError; ?></span><br>
+
             <label for="password">Password</label>
             <input type="password" id="password" name="password" placeholder="Enter your password">
             

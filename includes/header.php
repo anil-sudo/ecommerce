@@ -1,14 +1,38 @@
 <?php
-session_start();
-include '../database/dbconnection.php';
+    session_start();
+    include '../database/dbconnection.php';
 
-/* Cart items count */
-$totalItems = 0;
-$cartResult = $conn->query("SELECT SUM(quantity) AS total FROM cart");
-if ($cartResult && $cartResult->num_rows > 0) {
-    $cartRow = $cartResult->fetch_assoc();
-    $totalItems = $cartRow['total'] ?? 0;
-}
+    $totalItems = 0;
+
+    if (isset($_SESSION['user_id'])) {
+
+        $register_user_id = $_SESSION['user_id'];
+
+        // 🔹 Get user's cart
+        $cartStmt = $conn->prepare("SELECT id FROM carts WHERE register_user_id = ?");
+        $cartStmt->bind_param("i", $register_user_id);
+        $cartStmt->execute();
+        $cartResult = $cartStmt->get_result();
+
+        if ($cartResult->num_rows > 0) {
+
+            $cart = $cartResult->fetch_assoc();
+            $cart_id = $cart['id'];
+
+            // 🔹 Get total quantity
+            $countStmt = $conn->prepare(
+                "SELECT SUM(quantity) AS total FROM cart_items WHERE cart_id = ?"
+            );
+            $countStmt->bind_param("i", $cart_id);
+            $countStmt->execute();
+            $countResult = $countStmt->get_result();
+
+            if ($countResult->num_rows > 0) {
+                $row = $countResult->fetch_assoc();
+                $totalItems = $row['total'] ?? 0;
+            }
+        }
+    }
 ?>
 
 <header class="header">

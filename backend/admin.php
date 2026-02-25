@@ -8,7 +8,8 @@ include 'session_check.php';
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Panel | Products</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel | Products</title>    
     <link rel="stylesheet" href="css/admin.css">
 </head>
 <body>
@@ -17,16 +18,8 @@ include 'session_check.php';
 
 <div class="main">
 
-    <!-- Flash Message -->
-    <?php
-    if (isset($_SESSION['message'])) {
-        echo "<p class='flash-message'>" . $_SESSION['message'] . "</p>";
-        unset($_SESSION['message']);
-    }
-    ?>
-
     <!-- Header + Add Button -->
-    <div class="table-header">
+    <div class="table-header" style="margin-bottom: .5rem;">
         <h1>Product Management</h1>
         <a href="add_product.php">
             <button class="btn btn-add">+ Add Product</button>

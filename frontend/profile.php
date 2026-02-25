@@ -11,7 +11,7 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 
 /* Fetch user info */
-$stmt = $conn->prepare("SELECT username, email FROM register_user WHERE id = ?");
+$stmt = $conn->prepare("SELECT username, email, phone FROM register_user WHERE id = ?");
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
 $user = $stmt->get_result()->fetch_assoc();
@@ -120,6 +120,11 @@ button{
 .theme-btn{background:#2874f0;color:#fff;}
 .theme-btn:hover{background:#1d4ed8;}
 
+a.card {
+    display: block; 
+    color: inherit; 
+    text-decoration: none;
+}
 
 </style>
 <link rel="stylesheet" href="../assets/css/style.css">
@@ -133,6 +138,7 @@ button{
         <div class="avatar"><?= strtoupper(substr($user['username'],0,1)) ?></div>
         <h2 style="color:black;"><?= htmlspecialchars($user['username']) ?></h2>
         <p style="color:black;"><?= htmlspecialchars($user['email']) ?></p>
+        <p style="color:black;"><?= htmlspecialchars($user['phone']) ?></p>
         <div class="badge">Online</div>
     </div>
 
@@ -147,6 +153,10 @@ button{
         <p>Active</p>
     </div>
 
+    <a href="../frontend/orders.php" style="text-decoration: none;" class="card info-box">
+        <label>order History</label>
+        <p>View orders</p>
+    </a>
 
 
     <!-- Actions -->
