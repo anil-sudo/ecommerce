@@ -8,10 +8,21 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+if (!isset($_SESSION['role'])) {
+    $model = 'register_user';
+} else {
+    $model = ($_SESSION['role'] != 'admin' && $_SESSION['role'] != 'editor') ? 'register_user' : 'users';
+}
+    
 $user_id = $_SESSION['user_id'];
 
 /* Fetch user info */
-$stmt = $conn->prepare("SELECT username, email, phone FROM register_user WHERE id = ?");
+if ($model === 'users') {
+    $stmt = $conn->prepare("SELECT username, email FROM admins WHERE id = ?");
+} else {
+    $stmt = $conn->prepare("SELECT username, email, phone FROM register_user WHERE id = ?");
+}
+
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
 $user = $stmt->get_result()->fetch_assoc();
@@ -138,7 +149,9 @@ a.card {
         <div class="avatar"><?= strtoupper(substr($user['username'],0,1)) ?></div>
         <h2 style="color:black;"><?= htmlspecialchars($user['username']) ?></h2>
         <p style="color:black;"><?= htmlspecialchars($user['email']) ?></p>
-        <p style="color:black;"><?= htmlspecialchars($user['phone']) ?></p>
+        <?php if (isset($user['phone'])): ?>
+            <p style="color:black;"><?= htmlspecialchars($user['phone']) ?></p>
+        <?php endif; ?>
         <div class="badge">Online</div>
     </div>
 

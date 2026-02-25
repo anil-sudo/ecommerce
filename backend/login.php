@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = $_POST['password'];
 
     // Prepared statement to prevent SQL injection
-    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ? AND status='active'");
+    $stmt = $conn->prepare("SELECT * FROM admins WHERE email = ? AND status='active'");
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();

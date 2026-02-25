@@ -62,7 +62,7 @@ include '../database/dbconnection.php';
         </thead>
         <tbody>
             <?php
-            $query = "SELECT * FROM users ORDER BY id ASC";
+            $query = "SELECT * FROM admins ORDER BY id ASC";
             $result = $conn->query($query);
 
             if ($result->num_rows > 0) {

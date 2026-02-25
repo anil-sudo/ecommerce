@@ -16,7 +16,7 @@ $user_id = (int)$_SESSION['user_id'];
 
 //    FETCH ADMIN INFO
 
-$stmt = $conn->prepare("SELECT username, email FROM users WHERE id = ?");
+$stmt = $conn->prepare("SELECT username, email FROM admins WHERE id = ?");
 $stmt->bind_param("i", $user_id);
 $stmt->execute();
 $result = $stmt->get_result();
