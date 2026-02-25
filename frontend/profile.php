@@ -9,10 +9,6 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 if (!isset($_SESSION['role'])) {
-11
-
-
-
     $model = 'register_user';
 } else {
     $model = ($_SESSION['role'] != 'admin' && $_SESSION['role'] != 'editor') ? 'register_user' : 'users';
