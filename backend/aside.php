@@ -12,13 +12,21 @@
     <nav>
         <a href="admin.php" class="active"><i class="fa-solid fa-gauge"></i> Dashboard</a>
         <?php if ($isSuperAdmin): ?>
-            <a href="users.php"><i class="fa-solid fa-users"></i> Admin Users</a>
-            <a href="customer.php"><i class="fa-solid fa-users"></i> Customers</a>
-            <a href="orders.php"><i class="fa-solid fa-users"></i> Order Management</a>
+                <a href="users.php">
+                    <i class="fa-solid fa-user-shield"></i> Admin Users
+                </a>
+
+                <a href="customer.php">
+                    <i class="fa-solid fa-user-group"></i> Customers
+                </a>
+
+                <a href="orders.php">
+                    <i class="fa-solid fa-box-open"></i> Order Management
+                </a>
         <?php endif; ?>
         <a href="settings.php"><i class="fa-solid fa-gear"></i> Settings</a>
     </nav>
-    <button class="collapse-btn" onclick="toggleSidebar()"><i class="fa-solid fa-angle-left"></i></button>
+  
 </aside>
 
 <style>
@@ -62,20 +70,9 @@
 .sidebar a:hover { background:#1f2937; border-left:4px solid #3b82f6; }
 .sidebar a.active { background:#3b82f6; border-left:4px solid #2563eb; }
 
-/* Collapse Button */
-.collapse-btn {
-    position:absolute; bottom:20px; left:50%; transform:translateX(-50%);
-    background:#2563eb; color:#fff; border:none; padding:8px 12px; border-radius:6px; cursor:pointer;
-    transition:0.3s;
-}
-.collapse-btn:hover { background:#3b82f6; }
+
 </style>
 
-<script>
-function toggleSidebar(){
-    document.getElementById('sidebar').classList.toggle('collapsed');
-}
-</script>
 
 <!-- Include FontAwesome for icons -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">

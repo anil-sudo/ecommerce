@@ -5,7 +5,11 @@ include 'session_check.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = $_POST['name'];
     $price = $_POST['price'];
-
+        if (!is_numeric($price) || $price <= 0) {
+        $error = "Price must be a positive number.";
+    } elseif ($price > 1000000) {
+        $error = "Price is too large.";
+    }
     if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
         $image_name = time() . "_" . $_FILES['image']['name'];
         $upload_dir = "../assets/images/";
@@ -73,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         <div class="form-group">
             <label>Price (Rs.)</label>
-            <input type="number" step="0.01" name="price" required>
+            <input type="number" name="price" step="0.01" min="5000" max="1000000" required>
         </div>
 
         <div class="form-group">

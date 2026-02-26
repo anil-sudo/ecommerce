@@ -8,16 +8,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // Prepared statement to prevent SQL injection
-    $stmt = $conn->prepare("SELECT * FROM admins WHERE email = ? AND status='active'");
+    // Check prepare
+    $stmt = $conn->prepare("SELECT * FROM admins WHERE email = ?"); // remove status if it doesn't exist
+    if(!$stmt){
+        die("Prepare failed: " . $conn->error);
+    }
+
     $stmt->bind_param("s", $email);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($result->num_rows == 1) {
         $user = $result->fetch_assoc();
-        // Check password (if stored as plain text for now)
-        // For hashed passwords, use password_verify($password, $user['password'])
         if ($password === $user['password']) {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
@@ -28,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $error = "Invalid password.";
         }
     } else {
-        $error = "Invalid email or user inactive.";
+        $error = "Invalid email.";
     }
 }
 ?>

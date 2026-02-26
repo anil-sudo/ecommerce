@@ -46,30 +46,39 @@ while ($row = $result->fetch_assoc()) {
     <div class="container">
         <h2 style="margin:20px 0; text-align:center;">All Products</h2>
 
-        <div class="products-grid">
-            <?php if (!empty($products)): ?>
-                <?php foreach ($products as $row): ?>
-                    <a href="/e-commerce/frontend/product-detail.php?id=<?= $row['id'] ?>" style="text-decoration: none;">
-                        <div class="product-card">
-                            <img src="../assets/images/<?php echo htmlspecialchars($row['image']); ?>" alt="<?php echo htmlspecialchars($row['name']); ?>">
-                            <h3><?php echo htmlspecialchars($row['name']); ?></h3>
-                            <div class="rating">★★★★★</div>
-                            <div class="price-cart">
-                                <p class="price">Rs.<?php echo number_format($row['price'], 2); ?></p>
-                                <form method="post">
-                                    <input type="hidden" name="name" value="<?php echo htmlspecialchars($row['name']); ?>">
-                                    <input type="hidden" name="price" value="<?php echo $row['price']; ?>">
-                                    <input type="hidden" name="image" value="<?php echo htmlspecialchars($row['image']); ?>">
-                                    <button type="submit" name="cart" class="btn-cart">Add to Cart</button>
-                                </form>
-                            </div>
-                        </div>    
-                    </a>
-                <?php endforeach; ?>
-            <?php else: ?>z
-                <p>No products found.</p>
-            <?php endif; ?>
-        </div>
+<div class="products-grid">
+    <?php if (!empty($products)): ?>
+        <?php foreach ($products as $row): ?>
+            
+            <div class="product-card">
+
+                <!-- Make only image & title clickable -->
+                <a href="/e-commerce/frontend/product-detail.php?id=<?= $row['id'] ?>" style="text-decoration: none;">
+                    <img src="../assets/images/<?php echo htmlspecialchars($row['image']); ?>" 
+                         alt="<?php echo htmlspecialchars($row['name']); ?>">
+                    <h3><?php echo htmlspecialchars($row['name']); ?></h3>
+                </a>
+
+                <div class="rating">★★★★★</div>
+
+                <div class="price-cart">
+                    <p class="price">Rs.<?php echo number_format($row['price'], 2); ?></p>
+
+                    <!-- SAME structure as homepage -->
+                    <form method="post">
+                        <input type="hidden" name="product_id" value="<?php echo $row['id']; ?>">
+                        <input type="hidden" name="quantity" value="1">
+                        <button type="submit" name="cart" class="btn-cart">Add to Cart</button>
+                    </form>
+                </div>
+
+            </div>
+
+        <?php endforeach; ?>
+    <?php else: ?>
+        <p>No products found.</p>
+    <?php endif; ?>
+</div>
 
         <!-- Pagination -->
         <div class="pagination" style="text-align:center; margin:30px 0;">

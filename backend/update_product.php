@@ -74,7 +74,7 @@ include 'session_check.php';?>
 
         <div class="form-group">
             <label>Price (Rs.)</label>
-            <input type="number" step="0.01" name="price" value="<?php echo $product['price']; ?>" required>
+            <input type="number" name="price" step="0.01" min="5000" max="1000000" required>
         </div>
 
         <div class="form-group">
