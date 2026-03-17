@@ -71,6 +71,14 @@
 .nav-links a:hover::after {
     width: 100%;
 }
+.nav-links a.active {
+    color: #ff7a00;
+    font-weight: 600;
+}
+
+.nav-links a.active::after {
+    width: 100%;
+}
 
 /* Search Box */
 .search-box {

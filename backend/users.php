@@ -74,74 +74,132 @@ $result = $conn->query("SELECT * FROM admins ORDER BY id ASC");
 
 <!DOCTYPE html>
 <html lang="en">
-<style>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Users | Admin Panel</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Users | Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-<>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Arial',sans-serif;}
-body{background:#f4f6f8;color:#111827;transition:.3s;}
-body.dark-mode{background:#111827;color:#f4f6f8;}
-body.dark-mode table, body.dark-mode .form-section{background:#1f2937;color:#f4f6f8;}
-body.dark-mode th{background:#2563eb;color:#fff;}
-body.dark-mode tr:nth-child(even){background:#1a1f2b;}
-body.dark-mode tr:hover{background:#2563eb33;}
-body.dark-mode input, body.dark-mode select{background:#1f2937;color:#f4f6f8;border:1px solid #444;}
+    <style>
+        /* Reset & Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
 
-.main{margin-left:250px;padding:20px;}
-.main h1{margin-bottom:20px;color:#111827;}
 
-table{width:100%;border-collapse: collapse;background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 4px 6px rgba(0,0,0,0.1);}
-th, td{padding:12px;text-align:left;vertical-align:middle;}
-th{background:#3b82f6;color:#fff;}
-tr:nth-child(even){background:#f9fafb;}
-tr:hover{background:#e0f2fe;}
+ 
 
-input, select{padding:6px 10px;border:1px solid #ccc;border-radius:5px;}
-button{padding:6px 12px;border:none;border-radius:5px;cursor:pointer;color:#fff;transition:.3s;}
-.btn-add{background:#22c55e;}
-.btn-add:hover{background:#16a34a;}
-.btn-edit{background:#3b82f6;}
-.btn-edit:hover{background:#2563eb;}
-.btn-delete{background:#ef4444;}
-.btn-delete:hover{background:#b91c1c;}
+        body {
+            background: #f4f6f8;
+            color: #111827;
+            transition: 0.3s;
+        }
 
-form.inline-form{display:flex;gap:8px;align-items:center;}
-form.inline-form input, form.inline-form select{margin:0;}
-form.inline-form button{margin:0;}
-.flash-message{padding:10px;margin-bottom:15px;border-radius:5px;}
-.flash-message.success{background:#22c55e;color:#fff;}
-.flash-message.error{background:#ef4444;color:#fff;}
+  
 
-@media(max-width:768px){
-    .main{margin-left:0;}
-    table, thead, tbody, tr, th, td{display:block;}
-    tr{margin-bottom:15px;}
-    th{display:none;}
-    td{display:flex;justify-content:space-between;padding:10px;border-bottom:1px solid #ddd;}
-    td::before{content:attr(data-label);font-weight:bold;}
-}
-</>
-.flash-message {
-    padding: 10px 15px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    font-weight: 500;
-}
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
 
-.flash-message.success {
-    background-color: #22c55e; /* green bg */
-    color: #fff; /* white text */
-}
+        th, td {
+            padding: 12px;
+            text-align: left;
+            vertical-align: middle;
+        }
 
-.flash-message.error {
-    background-color: #ef4444; /* red bg */
-    color: #fff; /* white text */
-}
-</style>
+        th {
+            background: #3b82f6;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background: #f9fafb;
+        }
+
+        tr:hover {
+            background: #e0f2fe;
+        }
+
+
+
+        /* Layout */
+        .main {
+            margin-left: 250px;
+            padding: 20px;
+        }
+
+        .main h1 {
+            margin-bottom: 20px;
+            color: #111827;
+        }
+
+        /* Forms */
+        input, select {
+            padding: 6px 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: #fff;
+            transition: 0.3s;
+        }
+
+        .btn-add { background: #22c55e; }
+        .btn-add:hover { background: #16a34a; }
+        .btn-edit { background: #3b82f6; }
+        .btn-edit:hover { background: #2563eb; }
+        .btn-delete { background: #ef4444; }
+        .btn-delete:hover { background: #b91c1c; }
+
+        form.inline-form {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        form.inline-form input,
+        form.inline-form select {
+            margin: 0;
+        }
+
+        form.inline-form button {
+            margin: 0;
+        }
+
+        /* Flash messages */
+        .flash-message {
+            padding: 10px 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            font-weight: 500;
+        }
+
+        .flash-message.success {
+            background-color: #22c55e;
+            color: #fff;
+        }
+
+        .flash-message.error {
+            background-color: #ef4444;
+            color: #fff;
+        }
+    </style>
 </head>
+
 <body>
 
 <?php include 'aside.php'; ?>
@@ -168,7 +226,6 @@ if(isset($update_success)) echo "<div class='flash-message success'>$update_succ
     <select name="role" required>
         <option value="admin">Admin</option>
         <option value="editor">Editor</option>
-        <option value="manager">Manager</option>
     </select>
     <button type="submit" name="add_admin" class="btn-add">Add</button>
 </form>

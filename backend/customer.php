@@ -24,43 +24,8 @@ if(!$result) die("Query Failed: " . $conn->error);
 
     <style>
         *{ margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', sans-serif; }
-        body{ display:flex; min-height:100vh; background:#f4f7fc; overflow-x:hidden; }
+         body{ min-height:100vh; background:#f4f7fc; overflow-x:hidden; }
 
-        /* ---------------- Sidebar ---------------- */
-        .sidebar {
-            width: 250px; 
-            height: 100vh; 
-            background: #111827; 
-            color: #fff;
-            position: fixed;
-            top:0; left:0;
-            display: flex;
-            flex-direction: column;
-            transition: width 0.3s;
-            overflow: hidden;
-            box-shadow: 2px 0 10px rgba(0,0,0,0.2);
-        }
-        .sidebar.collapsed { width: 70px; }
-        .sidebar h2 {
-            text-align:center;
-            margin:25px 0;
-            font-size:1.8em;
-            letter-spacing:1px;
-        }
-        .sidebar nav { flex:1; display:flex; flex-direction:column; }
-        .sidebar a {
-            color:#fff; 
-            padding:15px 20px; 
-            text-decoration:none; 
-            display:flex;
-            align-items:center;
-            gap:15px;
-            transition:0.3s; 
-            border-left:4px solid transparent;
-        }
-        .sidebar a i { width:20px; text-align:center; font-size:1.1em; }
-        .sidebar a:hover { background:#1f2937; border-left:4px solid #3b82f6; }
-        .sidebar a.active { background:#3b82f6; border-left:4px solid #2563eb; }
 
         /* Collapse Button */
         .collapse-btn {
@@ -79,7 +44,7 @@ if(!$result) die("Query Failed: " . $conn->error);
         }
         .sidebar.collapsed ~ .main-content { margin-left:70px; }
 
-        h2{ margin-bottom:20px; color:#111827; }
+        .main-content h2{ margin-bottom:20px; color:#111827; }
 
         .card{
             background:white;
@@ -121,11 +86,7 @@ if(!$result) die("Query Failed: " . $conn->error);
             font-size:12px;
         }
 
-        /* Responsive */
-        @media(max-width:768px){
-            .main-content{ margin-left:70px; padding:20px; }
-            .sidebar{ width:70px; }
-        }
+
     </style>
 </head>
 <body>
@@ -161,14 +122,8 @@ if(!$result) die("Query Failed: " . $conn->error);
         </div>
     </div>
 
-    <script>
-        // Toggle sidebar collapse
-        const sidebar = document.getElementById('sidebar');
-        const collapseBtn = sidebar.querySelector('.collapse-btn');
-        collapseBtn.addEventListener('click', ()=>{
-            sidebar.classList.toggle('collapsed');
-        });
-    </script>
+
+    
 
 </body>
 </html>
