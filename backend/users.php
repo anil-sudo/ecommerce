@@ -3,7 +3,7 @@ session_start();
 include 'session_check.php';
 include '../database/dbconnection.php';
 
-$current_admin_id = $_SESSION['user_id'];
+$current_admin_id = $_SESSION['id'];
 
 /* =========================
    HANDLE ADD ADMIN

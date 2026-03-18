@@ -1,6 +1,6 @@
 <?php
-session_start();
 include '../database/dbconnection.php';
+include 'session_check.php';
 
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     die("Invalid product ID!");
@@ -58,8 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 <body>
 
-<?php include 'aside.php'; 
-include 'session_check.php';?>
+<?php include 'aside.php'; ?>
 
 <div class="main">
     <h1>Update Product</h1>

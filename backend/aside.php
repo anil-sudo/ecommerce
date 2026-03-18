@@ -1,25 +1,29 @@
 <?php
-    include '../database/dbconnection.php';
-
-    if (isset($_SESSION['role'])) {
-        $isSuperAdmin = $_SESSION['role'] === 'admin' ? true : false;        
-    } else {    
-        header("Location: ../frontend/index.php");
-    }
-
-    // Get current page name
-    $currentPage = basename($_SERVER['PHP_SELF']);
-?>
-<?php
+// ✅ STEP 1: Include DB — session_start() is handled inside dbconnection.php
 include '../database/dbconnection.php';
 
-if (isset($_SESSION['role'])) {
-    $isSuperAdmin = $_SESSION['role'] === 'admin';
-} else {
+// ✅ STEP 2: Check if user is logged in at all
+if (!isset($_SESSION['id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+// ✅ STEP 3: Check if user has a role
+if (!isset($_SESSION['role'])) {
+    header("Location: login.php");
+    exit();
+}
+
+// ✅ STEP 4: Block non-admins from accessing admin panel
+if ($_SESSION['role'] !== 'admin' && $_SESSION['role'] !== 'staff') {
     header("Location: ../frontend/index.php");
     exit();
 }
 
+// ✅ STEP 5: Set admin type
+$isSuperAdmin = $_SESSION['role'] === 'admin';
+
+// ✅ STEP 6: Get current page
 $currentPage = basename($_SERVER['PHP_SELF']);
 ?>
 
@@ -55,22 +59,20 @@ $currentPage = basename($_SERVER['PHP_SELF']);
     </nav>
 
 </aside>
-  
 
 
 <style>
-    .logo{
+.logo {
     font-family: 'Poppins', sans-serif;
     font-weight: 700;
 }
-/* Sidebar */
 .sidebar {
-    width: 250px; 
-    height: 100vh; 
-    background: #111827; 
+    width: 250px;
+    height: 100vh;
+    background: #111827;
     color: #fff;
     position: fixed;
-    top:0; left:0;
+    top: 0; left: 0;
     display: flex;
     flex-direction: column;
     transition: width 0.3s;
@@ -79,34 +81,29 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 }
 .sidebar.collapsed { width: 70px; }
 .sidebar h2 {
-    text-align:center;
-    margin:25px 0;
-    font-size:1.8em;
-    letter-spacing:1px;
+    text-align: center;
+    margin: 25px 0;
+    font-size: 1.8em;
+    letter-spacing: 1px;
 }
 .sidebar nav {
-    flex:1;
-    display:flex;
-    flex-direction:column;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 .sidebar a {
-    color:#fff; 
-    padding:15px 20px; 
-    text-decoration:none; 
-    display:flex;
-    align-items:center;
-    gap:15px;
-    transition:0.3s; 
-    border-left:4px solid transparent;
+    color: #fff;
+    padding: 15px 20px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: 0.3s;
+    border-left: 4px solid transparent;
 }
-.sidebar a i { width:20px; text-align:center; font-size:1.1em; }
-.sidebar a:hover { background:#1f2937; border-left:4px solid #3b82f6; }
-.sidebar a.active { background:#3b82f6; border-left:4px solid #2563eb; }
-.sidebar a.active {
-    background:#3b82f6;
-    border-left:4px solid #2563eb;
-}
-/* Sidebar container */
+.sidebar a i { width: 20px; text-align: center; font-size: 1.1em; }
+.sidebar a:hover { background: #1f2937; border-left: 4px solid #3b82f6; }
+.sidebar a.active { background: #3b82f6; border-left: 4px solid #2563eb; }
 .sidebar-nav {
     display: flex;
     flex-direction: column;
@@ -115,8 +112,6 @@ $currentPage = basename($_SERVER['PHP_SELF']);
     background-color: #111827;
     color: #fff;
 }
-
-/* Main nav links */
 .nav-main a {
     display: flex;
     align-items: center;
@@ -128,13 +123,10 @@ $currentPage = basename($_SERVER['PHP_SELF']);
     margin-bottom: 8px;
     transition: background 0.3s;
 }
-
-.nav-main a.active, .nav-main a:hover {
+.nav-main a.active,
+.nav-main a:hover {
     background-color: #3b82f6;
 }
-
-
-/* Logout fixed at bottom */
 .logout-btn {
     display: flex;
     align-items: center;
@@ -142,22 +134,18 @@ $currentPage = basename($_SERVER['PHP_SELF']);
     padding: 12px;
     text-decoration: none;
     color: #fff;
-    background-color: #ef4444; /* red */
+    background-color: #ef4444;
     border-radius: 5px;
     font-weight: 500;
     position: absolute;
-    bottom: 20px; /* distance from bottom of screen */
-    width: calc(100% - 60px); /* full width minus sidebar padding */
+    bottom: 20px;
+    width: calc(100% - 60px);
     left: 20px;
     transition: background 0.3s;
 }
-
 .logout-btn:hover {
     background-color: #b91c1c;
 }
-
 </style>
 
-
-<!-- Include FontAwesome for icons -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">

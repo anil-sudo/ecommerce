@@ -21,8 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($result->num_rows == 1) {
         $user = $result->fetch_assoc();
         if ($password === $user['password']) {
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['username'] = $user['username'];
+            $_SESSION['id'] = $user['id'];
+            $_SESSION['name'] = $user['username'];
             $_SESSION['role'] = $user['role'];
             header("Location: admin.php");
             exit();
