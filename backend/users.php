@@ -9,16 +9,34 @@ $current_admin_id = $_SESSION['id'];
    HANDLE ADD ADMIN
 ========================= */
 if (isset($_POST['add_admin'])) {
+
     $username = trim($_POST['username']);
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
     $role = trim($_POST['role']);
 
-    // PASSWORD VALIDATION
-    if(strlen($password) < 6){
+    /* ---- USERNAME VALIDATION ---- */
+    if (empty($username) || strlen($username) < 3) {
+        $add_error = "Username must be at least 3 characters.";
+    }
+
+    elseif (!preg_match("/^[a-zA-Z ]+$/", $username)) {
+    $add_error = "Username must contain only letters.";
+}
+
+    /* ---- EMAIL VALIDATION ---- */
+    elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $add_error = "Invalid email format.";
+    }
+
+    /* ---- PASSWORD VALIDATION ---- */
+    elseif (strlen($password) < 6) {
         $add_error = "Password must be at least 6 characters.";
-    } else {
-        // Check duplicate email
+    }
+
+    else {
+
+        /* Check duplicate email */
         $check = $conn->prepare("SELECT id FROM admins WHERE email = ?");
         $check->bind_param("s", $email);
         $check->execute();
@@ -27,10 +45,18 @@ if (isset($_POST['add_admin'])) {
         if ($check->num_rows > 0) {
             $add_error = "Email already exists.";
         } else {
+
+            /* HASH PASSWORD */
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
             $stmt = $conn->prepare("INSERT INTO admins (username, email, password, role) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param("ssss", $username, $email, $password, $role);
-            $stmt->execute();
-            $add_success = "Admin added successfully.";
+            $stmt->bind_param("ssss", $username, $email, $hashed_password, $role);
+
+            if ($stmt->execute()) {
+                $add_success = "Admin added successfully.";
+            } else {
+                $add_error = "Database error: " . $stmt->error;
+            }
         }
     }
 }
@@ -39,15 +65,21 @@ if (isset($_POST['add_admin'])) {
    HANDLE DELETE
 ========================= */
 if (isset($_GET['delete'])) {
+
     $delete_id = (int)$_GET['delete'];
 
     if ($delete_id == $current_admin_id) {
         $delete_error = "You cannot delete your own account.";
     } else {
+
         $stmt = $conn->prepare("DELETE FROM admins WHERE id = ?");
         $stmt->bind_param("i", $delete_id);
-        $stmt->execute();
-        $delete_success = "Admin deleted successfully.";
+
+        if ($stmt->execute()) {
+            $delete_success = "Admin deleted successfully.";
+        } else {
+            $delete_error = "Failed to delete admin.";
+        }
     }
 }
 
@@ -55,15 +87,30 @@ if (isset($_GET['delete'])) {
    HANDLE UPDATE
 ========================= */
 if (isset($_POST['update_admin'])) {
+
     $id = (int)$_POST['id'];
     $username = trim($_POST['username']);
     $email = trim($_POST['email']);
     $role = trim($_POST['role']);
 
-    $stmt = $conn->prepare("UPDATE admins SET username=?, email=?, role=? WHERE id=?");
-    $stmt->bind_param("sssi", $username, $email, $role, $id);
-    $stmt->execute();
-    $update_success = "Admin updated successfully.";
+    /* Validation */
+    if (empty($username) || strlen($username) < 3) {
+        $update_error = "Username must be at least 3 characters.";
+    }
+    elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $update_error = "Invalid email format.";
+    }
+    else {
+
+        $stmt = $conn->prepare("UPDATE admins SET username=?, email=?, role=? WHERE id=?");
+        $stmt->bind_param("sssi", $username, $email, $role, $id);
+
+        if ($stmt->execute()) {
+            $update_success = "Admin updated successfully.";
+        } else {
+            $update_error = "Database error: " . $stmt->error;
+        }
+    }
 }
 
 /* =========================

@@ -68,14 +68,14 @@ $initial = strtoupper(substr($user['username'], 0, 1));
   --gold:        #c9a84c;
   --gold-light:  #e8c97a;
   --gold-dim:    rgba(201,168,76,0.13);
-  --dark:        #f7fafc;
-  --surface:     #ffffff;
-  --card:        #ffffff;
-  --border:      rgba(0,0,0,0.08);
-  --border-soft: rgba(0,0,0,0.05);
-  --text:        #0f172a;
-  --text-soft:   #475569;
-  --muted:       #64748b;
+  --dark:        #09090e;
+  --surface:     #101018;
+  --card:        #14141e;
+  --border:      rgba(201,168,76,0.18);
+  --border-soft: rgba(255,255,255,0.05);
+  --text:        #f0ece3;
+  --text-soft:   #b0acA4;
+  --muted:       #6a6876;
   --green:       #22c55e;
   --danger:      #ef4444;
 }
@@ -91,7 +91,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  padding: 48px 32px;
+  padding: 64px 16px 80px;
   overflow-x: hidden;
 }
 
@@ -102,23 +102,21 @@ body::before {
   top: -10%;
   left: 50%;
   transform: translateX(-50%);
-  width: 1000px;
-  height: 700px;
+  width: 800px;
+  height: 600px;
   background: radial-gradient(ellipse at center,
-    rgba(201,168,76,0.12) 0%,
+    rgba(201,168,76,0.06) 0%,
     transparent 65%);
   pointer-events: none;
   z-index: 0;
 }
 
-/* ── Main Container ── */
-.main-container {
+/* ── Wrapper ── */
+.card {
+  position: relative;
   width: 100%;
-  max-width: 1200px;
+  max-width: 460px;
   z-index: 1;
-  display: grid;
-  grid-template-columns: 380px 1fr;
-  gap: 32px;
   animation: rise 0.85s cubic-bezier(0.22,1,0.36,1) both;
 }
 
@@ -127,19 +125,12 @@ body::before {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* ── Wrapper ── */
-.card {
-  position: relative;
-  width: 100%;
-  z-index: 1;
-}
-
 /* ── Hero ── */
 .hero {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 22px 22px 0 0;
-  padding: 48px 32px 36px;
+  padding: 52px 32px 40px;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -625,27 +616,16 @@ a.row-link:hover .row-arrow {
 }
 
 /* ── Responsive ── */
-@media (max-width: 1024px) {
-  .main-container {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-  body { padding: 36px 24px; }
-}
-
-@media (max-width: 768px) {
-  body { padding: 32px 16px; }
+@media (max-width: 520px) {
+  body { padding: 48px 12px 60px; }
   .hero { padding: 40px 24px 32px; }
-  .card { max-width: 100%; }
+
 }
 </style>
 </head>
 <body>
 
-<div class="main-container">
-
-  <!-- LEFT COLUMN: Profile Card -->
-  <div class="card">
+<div class="card">
 
   <!-- HERO -->
   <div class="hero">
@@ -680,6 +660,14 @@ a.row-link:hover .row-arrow {
     <!-- Member Level -->
     <div style="text-align: center;">
       <div class="member-level">Gold Member</div>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="stat-number"><?= $total_orders ?></div>
+        <div class="stat-label">Orders</div>
+      </div>
     </div>
 
     <!-- User Info -->
@@ -717,6 +705,33 @@ a.row-link:hover .row-arrow {
       </div>
     </div>
 
+    <!-- Divider -->
+    <div class="divider">
+      <div class="divider-line"></div>
+      <div class="divider-label">Shopping</div>
+      <div class="divider-line"></div>
+    </div>
+
+    <!-- Quick Links Grid -->
+    <div class="quick-links">
+      <a href="../frontend/orders.php" class="quick-link">
+        <div class="quick-link-icon">📦</div>
+        <div>Orders</div>
+      </a>
+      <a href="../frontend/product.php" class="quick-link">
+        <div class="quick-link-icon">🛍️</div>
+        <div>Shop</div>
+      </a>
+      <a href="../frontend/cart.php" class="quick-link">
+        <div class="quick-link-icon">🛒</div>
+        <div>Cart</div>
+      </a>
+      <a href="../frontend/about.php" class="quick-link">
+        <div class="quick-link-icon">ℹ️</div>
+        <div>About</div>
+      </a>
+    </div>
+
     <!-- Actions -->
     <div style="margin-top: 16px;">
       <a href="../database/logout.php" class="btn-logout">
@@ -727,78 +742,6 @@ a.row-link:hover .row-arrow {
   </div>
 
   <div class="brand">Shop<em>Ease</em> — Premium Member Portal</div>
-
-</div>
-
-<!-- RIGHT COLUMN: Stats & Quick Actions -->
-<div class="card">
-  <style>
-    .right-column { display: flex; flex-direction: column; gap: 24px; }
-    .stat-section { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 24px; }
-    .stat-section-title { font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 16px; font-weight: 600; }
-    .stats-row { display: flex; justify-content: space-around; gap: 16px; margin-bottom: 20px; }
-    .stats-row:last-child { margin-bottom: 0; }
-    .stat-item { text-align: center; flex: 1; }
-    .stat-item-number { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--gold); margin-bottom: 4px; }
-    .stat-item-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
-    .quick-actions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  </style>
-
-  <div class="right-column">
-    
-    <!-- Orders Stat -->
-    <div class="stat-section">
-      <div class="stat-section-title">📊 Your Activity</div>
-      <div class="stats-row">
-        <div class="stat-item">
-          <div class="stat-item-number"><?= $total_orders ?></div>
-          <div class="stat-item-label">Total Orders</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-item-number">⭐</div>
-          <div class="stat-item-label">Gold Member</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Quick Actions -->
-    <div class="stat-section">
-      <div class="stat-section-title">🚀 Quick Actions</div>
-      <div class="quick-actions-grid">
-        <a href="orders.php" class="quick-link" style="border-radius: 10px; padding: 16px 12px;">
-          <div class="quick-link-icon">📦</div>
-          <div style="font-size: 11px;">Orders</div>
-        </a>
-        <a href="product.php" class="quick-link" style="border-radius: 10px; padding: 16px 12px;">
-          <div class="quick-link-icon">🛍️</div>
-          <div style="font-size: 11px;">Shop</div>
-        </a>
-        <a href="cart.php" class="quick-link" style="border-radius: 10px; padding: 16px 12px;">
-          <div class="quick-link-icon">🛒</div>
-          <div style="font-size: 11px;">Cart</div>
-        </a>
-        <a href="about.php" class="quick-link" style="border-radius: 10px; padding: 16px 12px;">
-          <div class="quick-link-icon">ℹ️</div>
-          <div style="font-size: 11px;">About</div>
-        </a>
-      </div>
-    </div>
-
-    <!-- Account Status -->
-    <div class="stat-section">
-      <div class="stat-section-title">✅ Account Status</div>
-      <div style="padding: 12px 0;">
-        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 10px;">
-          <span style="width: 8px; height: 8px; background: var(--green); border-radius: 50%;"></span>
-          <span style="font-size: 13px; color: var(--text);">Active & Verified</span>
-        </div>
-        <div style="font-size: 12px; color: var(--text-soft); margin-bottom: 14px;">Your account is in good standing</div>
-      </div>
-    </div>
-
-
-  </div>
-</div>
 
 </div>
 

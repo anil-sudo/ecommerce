@@ -66,7 +66,7 @@ $result = $stmt->get_result();
             <option value="pending" <?php if($statusFilter=='pending') echo 'selected'; ?>>Pending</option>
             <option value="confirmed" <?php if($statusFilter=='confirmed') echo 'selected'; ?>>Confirmed</option>
             <option value="delivered" <?php if($statusFilter=='delivered') echo 'selected'; ?>>Delivered</option>
-            <option value="cancelled" <?php if($statusFilter=='cancelled') echo 'selected'; ?>>Cancelled</option>
+            
         </select>
         <button type="submit" class="btn btn-edit">Search</button>
     </form>

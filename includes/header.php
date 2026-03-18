@@ -34,7 +34,8 @@ if (isset($_SESSION['user_id'])) {
     }
 }
 ?>
-
+<!-- Font Awesome 6 Free -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-wxq4s1jC5QpXx1hFvK3dH1c0XhD5VxDlJrBqGw5Jw1gWlzJxA4+XKfC7b1ZK6P6m+bhbHg8X4cYfGjA3hzQ8sw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <header class="header">
     <div class="navbar">
 
@@ -68,7 +69,7 @@ if (isset($_SESSION['user_id'])) {
                     <?php endif; ?>
                 </a>
 
-                <a href="../frontend/profile.php" class="profile"><?= htmlspecialchars($_SESSION['username']) ?></a>
+                <a href="../frontend/profile.php" class="profile">Profile</a>
                 <a href="../database/logout.php" class="profile">Logout</a>
             <?php else: ?>
                 <a href="../frontend/login.php" class="sign">Sign in</a>

@@ -15,7 +15,6 @@
             <h3>Quick Links</h3>
             <ul>
                 <li><a href="../frontend/index.php">Home</a></li>
-                <li><a href="../frontend/products.php">Shop</a></li>
                 <li><a href="../frontend/about.php">About Us</a></li>
             </ul>
         </div>
@@ -34,12 +33,11 @@
         <div class="footer-box">
             <h3>Contact</h3>
             <p>Email: support@shopease.com</p>
-            <p>Phone: +977 98XXXXXXXX</p>
+            <p>Phone: +977 9863450146</p>
 
             <div class="social-links">
-                <a href="#">Facebook</a>
-                <a href="#">Instagram</a>
-                <a href="#">Twitter</a>
+                <a href="https://www.facebook.com/anil.shrestha.625410">Facebook</a>
+                <a href="https://www.instagram.com/anilstha662/">Instagram</a>
             </div>
         </div>
 
@@ -48,6 +46,6 @@
     <!-- Bottom Bar -->
     <div class="footer-bottom">
         <p>© 2025 ShopEase. All Rights Reserved.</p>
-        <p class="payments">Visa • MasterCard • eSewa • Khalti</p>
+        <p class="payments"> • eSewa </p>
     </div>
 </footer>

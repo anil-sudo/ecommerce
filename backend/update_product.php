@@ -18,35 +18,78 @@ if ($result->num_rows == 0) die("Product not found!");
 $product = $result->fetch_assoc();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $name = $_POST['name'];
+
+    $name = trim($_POST['name']);
     $price = $_POST['price'];
     $image_name = $product['image'];
 
-    if (isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
-        $image_name = time() . "_" . $_FILES['image']['name'];
-        $upload_dir = "../assets/images/";
-        if (!is_dir($upload_dir)) mkdir($upload_dir, 0755, true);
-        $target = $upload_dir . $image_name;
+    /* ---------- PRODUCT NAME VALIDATION ---------- */
+    if (empty($name) || strlen($name) < 3) {
+        $error = "Product name must be at least 3 characters.";
+    }
+    elseif (!preg_match("/[a-zA-Z]/", $name)) {
+        $error = "Product name must contain letters.";
+    }
+    elseif (!preg_match("/^[a-zA-Z0-9 ]+$/", $name)) {
+        $error = "Product name contains invalid characters.";
+    }
 
-        if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
-            $old_image = $upload_dir . $product['image'];
-            if (file_exists($old_image)) unlink($old_image);
+    /* ---------- PRICE VALIDATION ---------- */
+    elseif (!is_numeric($price) || $price <= 0) {
+        $error = "Price must be a positive number.";
+    }
+    elseif ($price > 1000000) {
+        $error = "Price is too large.";
+    }
+
+    /* ---------- IMAGE UPLOAD (OPTIONAL) ---------- */
+    if (!isset($error) && isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
+
+        $allowed_types = ['image/jpeg', 'image/png', 'image/webp'];
+
+        if (!in_array($_FILES['image']['type'], $allowed_types)) {
+            $error = "Only JPG, PNG, or WEBP images are allowed.";
         } else {
-            $error = "Failed to upload new image.";
+
+            $image_name = time() . "_" . preg_replace("/[^a-zA-Z0-9.]/", "_", $_FILES['image']['name']);
+            $upload_dir = "../assets/images/";
+
+            if (!is_dir($upload_dir)) {
+                mkdir($upload_dir, 0755, true);
+            }
+
+            $target = $upload_dir . $image_name;
+
+            if (move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
+
+                $old_image = $upload_dir . $product['image'];
+
+                if (file_exists($old_image)) {
+                    unlink($old_image);
+                }
+
+            } else {
+                $error = "Failed to upload new image.";
+            }
         }
     }
 
-    $stmt_update = $conn->prepare("UPDATE products SET name=?, price=?, image=? WHERE id=?");
-    $stmt_update->bind_param("sdsi", $name, $price, $image_name, $id);
+    /* ---------- UPDATE PRODUCT ---------- */
+    if (!isset($error)) {
 
-    if ($stmt_update->execute()) {
-        $_SESSION['message'] = "Product updated successfully!";
-        header("Location: admin.php");
-        exit();
-    } else {
-        $error = "Database error: " . $stmt_update->error;
+        $stmt_update = $conn->prepare("UPDATE products SET name=?, price=?, image=? WHERE id=?");
+        $stmt_update->bind_param("sdsi", $name, $price, $image_name, $id);
+
+        if ($stmt_update->execute()) {
+            $_SESSION['message'] = "Product updated successfully!";
+            header("Location: admin.php");
+            exit();
+        } else {
+            $error = "Database error: " . $stmt_update->error;
+        }
     }
 }
+?>
 ?>
 
 <!DOCTYPE html>
