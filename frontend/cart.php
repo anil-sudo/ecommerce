@@ -24,8 +24,16 @@ if ($cartResult->num_rows > 0) {
     $cart_id = $cart['id'];
 }
 
+// ── CSRF Protection ────────────────────────────────────────────────────────────
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
 // ── Handle quantity update ─────────────────────────────────────────────────────
 if (isset($_POST['update']) && $cart_id) {
+    if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+        die("CSRF Token Verification Failed.");
+    }
     $item_id  = intval($_POST['item_id']);
     $quantity = max(1, intval($_POST['quantity']));
 
@@ -42,6 +50,9 @@ if (isset($_POST['update']) && $cart_id) {
 
 // ── Handle remove ──────────────────────────────────────────────────────────────
 if (isset($_POST['remove']) && $cart_id) {
+    if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+        die("CSRF Token Verification Failed.");
+    }
     $item_id = intval($_POST['item_id']);
 
     $deleteStmt = $conn->prepare("
@@ -494,6 +505,7 @@ $amountNoTax  = round($totalAmount - $taxAmount, 2);
                     <!-- Quantity -->
                     <td>
                         <form method="POST" class="qty-form">
+                            <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                             <input type="hidden" name="item_id" value="<?php echo $item['id']; ?>">
                             <input type="number" name="quantity"
                                    value="<?php echo $item['quantity']; ?>"
@@ -505,9 +517,9 @@ $amountNoTax  = round($totalAmount - $taxAmount, 2);
                     <!-- Subtotal -->
                     <td><strong>Rs. <?php echo number_format($item['subtotal'], 2); ?></strong></td>
 
-                    <!-- Remove -->
                     <td>
                         <form method="POST">
+                            <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                             <input type="hidden" name="item_id" value="<?php echo $item['id']; ?>">
                             <button type="submit" name="remove" class="btn-remove">Remove</button>
                         </form>

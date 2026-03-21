@@ -8,7 +8,7 @@
     if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $productId = (int) $_GET['id'];
 
-        $stmt = $conn->prepare("SELECT * FROM products WHERE id = ?");
+        $stmt = $conn->prepare("SELECT * FROM products WHERE id = ? AND is_deleted = 0");
         $stmt->bind_param("i", $productId);
         $stmt->execute();
         $result = $stmt->get_result();

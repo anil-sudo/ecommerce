@@ -74,6 +74,32 @@ if ($source === 'esewa') {
         exit;
     }
 
+    // --- eSewa Signature Verification ---
+    $transaction_code = $data['transaction_code'] ?? '';
+    $status = $data['status'] ?? '';
+    $total_amount = $data['total_amount'] ?? '';
+    $transaction_uuid = $data['transaction_uuid'] ?? '';
+    $product_code = $data['product_code'] ?? 'EPAYTEST';
+    $signed_field_names = $data['signed_field_names'] ?? 'transaction_code,status,total_amount,transaction_uuid,product_code,signed_field_names';
+    
+    // Construct the message string according to signed_field_names
+    $fields = explode(',', $signed_field_names);
+    $message_parts = [];
+    foreach($fields as $field) {
+        $message_parts[] = $field . '=' . ($data[$field] ?? '');
+    }
+    $message = implode(',', $message_parts);
+    
+    $secret_key = '8gBm/:&EnhH.1/q'; 
+    $expected_signature = base64_encode(hash_hmac('sha256', $message, $secret_key, true));
+
+    if (!isset($data['signature']) || $data['signature'] !== $expected_signature) {
+        // Validation failed, potential tampering
+        header("Location: " . $failedPage);
+        exit;
+    }
+    // -------------------------------------
+
     $totalAmount       = $data['total_amount'] ?? 0;
     $transactionUUID   = !empty($data['transaction_uuid']) ? $data['transaction_uuid'] : generateUUIDv4();
     $orderStatus       = 'confirmed';
@@ -140,11 +166,12 @@ try {
         throw new Exception("Failed to create order.");
     }
 
-    // 2. Copy cart items into order_items
+    // 2. Copy cart items into order_items (with historical product_name)
     $stmtCartItems = $conn->prepare("
-        SELECT ci.product_id, ci.quantity, ci.price
+        SELECT ci.product_id, ci.quantity, ci.price, p.name as product_name
         FROM carts c
         JOIN cart_items ci ON c.id = ci.cart_id
+        JOIN products p ON ci.product_id = p.id
         WHERE c.register_user_id = ?
     ");
     $stmtCartItems->bind_param("i", $userId);
@@ -156,15 +183,16 @@ try {
     }
 
     $stmtInsertItem = $conn->prepare("
-        INSERT INTO order_items (order_id, product_id, quantity, price)
-        VALUES (?, ?, ?, ?)
+        INSERT INTO order_items (order_id, product_id, product_name, quantity, price)
+        VALUES (?, ?, ?, ?, ?)
     ");
 
     while ($item = $cartItems->fetch_assoc()) {
         $stmtInsertItem->bind_param(
-            "iiid",
+            "iisid",
             $orderId,
             $item['product_id'],
+            $item['product_name'],
             $item['quantity'],
             $item['price']
         );

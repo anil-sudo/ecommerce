@@ -10,6 +10,21 @@ if (!isset($_GET['id'])) {
 
 $orderId = intval($_GET['id']);
 
+// --- Handle Mark as Paid ---
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mark_paid'])) {
+    $stmtPay = $conn->prepare("UPDATE transactions SET status = 'success' WHERE order_id = ? AND note = 'COD order'");
+    $stmtPay->bind_param("i", $orderId);
+    $stmtPay->execute();
+    
+    // Check if order status should be updated to confirmed? (Optional)
+    $stmtConf = $conn->prepare("UPDATE orders SET status = 'confirmed' WHERE id = ? AND status = 'pending'");
+    $stmtConf->bind_param("i", $orderId);
+    $stmtConf->execute();
+    
+    header("Location: order_detail.php?id=" . $orderId);
+    exit;
+}
+
 // Single optimized query — fetch order + customer + transaction + address
 $stmtOrder = $conn->prepare("
     SELECT o.id, o.total_amount, o.status AS order_status, o.created_at,
@@ -32,11 +47,11 @@ if ($orderResult->num_rows == 0) {
 
 $order = $orderResult->fetch_assoc();
 
-// Fetch order items
+// Fetch order items (reading historical product_name natively)
 $stmtItems = $conn->prepare("
-    SELECT oi.quantity, oi.price, p.name, p.image 
+    SELECT oi.quantity, oi.price, oi.product_name, p.image, p.is_deleted 
     FROM order_items oi 
-    JOIN products p ON oi.product_id = p.id
+    LEFT JOIN products p ON oi.product_id = p.id
     WHERE oi.order_id = ?
 ");
 $stmtItems->bind_param("i", $orderId);
@@ -345,7 +360,16 @@ $fullAddress = !empty($addressParts) ? implode(', ', $addressParts) : 'Not provi
                         <?php echo ($order['transaction_note'] === 'COD order') ? 'Cash on Delivery' : 'eSewa'; ?>
                     </strong>
                 </div>
-                <div class="admin-info-row">
+                <!-- Mark as Paid Button -->
+                <?php if ($order['transaction_note'] === 'COD order' && $order['transaction_status'] === 'pending'): ?>
+                <div style="margin-top: 15px; text-align: right;">
+                    <form method="POST" onsubmit="return confirm('Confirm payment received for this COD order?');">
+                        <input type="hidden" name="mark_paid" value="1">
+                        <button type="submit" style="background:#28a745; color:#fff; border:none; padding:8px 16px; border-radius:6px; cursor:pointer;">Mark as Paid</button>
+                    </form>
+                </div>
+                <?php endif; ?>
+                <div class="admin-info-row" style="margin-top:10px;">
                     <span>Transaction ID</span>
                     <strong style="font-size:12px; word-break:break-all;">
                         <?php echo htmlspecialchars($order['transaction_id'] ?? '—'); ?>
@@ -403,10 +427,17 @@ $fullAddress = !empty($addressParts) ? implode(', ', $addressParts) : 'Not provi
                     <tr>
                         <td>
                             <div class="admin-product-cell">
-                                <img src="../assets/images/<?php echo htmlspecialchars($item['image']); ?>"
+                                <?php 
+                                    $imgSrc = !empty($item['image']) ? "../assets/images/" . htmlspecialchars($item['image']) : "../assets/images/placeholder.jpg";
+                                    $displayName = htmlspecialchars($item['product_name']);
+                                    if ($item['image'] === null || $item['is_deleted'] == 1) {
+                                        $displayName .= " <span style='color:red; font-size:11px;'>(Del. Catalog)</span>";
+                                    }
+                                ?>
+                                <img src="<?php echo $imgSrc; ?>"
                                      class="admin-product-img"
-                                     alt="<?php echo htmlspecialchars($item['name']); ?>">
-                                <span><?php echo htmlspecialchars($item['name']); ?></span>
+                                     alt="Product Image">
+                                <span><?php echo $displayName; ?></span>
                             </div>
                         </td>
                         <td>Rs. <?php echo number_format($item['price'], 2); ?></td>

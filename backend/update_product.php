@@ -45,9 +45,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     /* ---------- IMAGE UPLOAD (OPTIONAL) ---------- */
     if (!isset($error) && isset($_FILES['image']) && $_FILES['image']['error'] == 0) {
 
-        $allowed_types = ['image/jpeg', 'image/png', 'image/webp'];
+        $allowed_extensions = ['jpg', 'jpeg', 'png', 'webp'];
+        $file_extension = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
+        $allowed_mime_types = ['image/jpeg', 'image/png', 'image/webp'];
 
-        if (!in_array($_FILES['image']['type'], $allowed_types)) {
+        if (!in_array($file_extension, $allowed_extensions) || !in_array($_FILES['image']['type'], $allowed_mime_types)) {
             $error = "Only JPG, PNG, or WEBP images are allowed.";
         } else {
 

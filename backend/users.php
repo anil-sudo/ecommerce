@@ -64,9 +64,9 @@ if (isset($_POST['add_admin'])) {
 /* =========================
    HANDLE DELETE
 ========================= */
-if (isset($_GET['delete'])) {
+if (isset($_POST['delete_admin']) && isset($_POST['id'])) {
 
-    $delete_id = (int)$_GET['delete'];
+    $delete_id = (int)$_POST['id'];
 
     if ($delete_id == $current_admin_id) {
         $delete_error = "You cannot delete your own account.";
@@ -311,9 +311,7 @@ if(isset($update_success)) echo "<div class='flash-message success'>$update_succ
                     <td data-label="Actions">
                         <button type="submit" name="update_admin" class="btn-edit">Update</button>
                         <?php if($row['id'] != $current_admin_id): ?>
-                        <a href="?delete=<?= $row['id'] ?>" onclick="return confirm('Delete this admin?')">
-                            <button type="button" class="btn-delete">Delete</button>
-                        </a>
+                        <button type="submit" name="delete_admin" class="btn-delete" onclick="return confirm('Delete this admin?')">Delete</button>
                         <?php endif; ?>
                     </td>
                 </form>

@@ -18,9 +18,6 @@
         <!-- Register Form -->
         <form class="register-form"  method = "post" action = "register.php">
             <h2>Create Account</h2>
-          <?php
-          include '../database/registrationdb.php';
-          ?>
          
          
             <label for="username">Username</label>

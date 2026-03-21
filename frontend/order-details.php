@@ -36,11 +36,11 @@ if ($orderResult->num_rows == 0) {
 
 $order = $orderResult->fetch_assoc();
 
-// Fetch order items
+// Fetch order items (historical decoupling)
 $stmtItems = $conn->prepare("
-    SELECT oi.quantity, oi.price, p.name, p.image 
+    SELECT oi.quantity, oi.price, oi.product_name, p.image, p.is_deleted 
     FROM order_items oi 
-    JOIN products p ON oi.product_id = p.id
+    LEFT JOIN products p ON oi.product_id = p.id
     WHERE oi.order_id = ?
 ");
 $stmtItems->bind_param("i", $orderId);
@@ -68,8 +68,15 @@ $totalAmount = 0;
         ?>
             <tr>
                 <td>
-                    <img src="../assets/images/<?php echo htmlspecialchars($item['image']); ?>" width="60">
-                    <?php echo htmlspecialchars($item['name']); ?>
+                    <?php 
+                        $imgSrc = !empty($item['image']) ? "../assets/images/" . htmlspecialchars($item['image']) : "../assets/images/placeholder.jpg";
+                        $displayName = htmlspecialchars($item['product_name']);
+                        if ($item['image'] === null || $item['is_deleted'] == 1) {
+                            $displayName .= " <span style='color:red; font-size:12px;'>(Unav.)</span>";
+                        }
+                    ?>
+                    <img src="<?php echo $imgSrc; ?>" width="60" alt="Product Image" style="vertical-align: middle; margin-right: 10px;">
+                    <?php echo $displayName; ?>
                 </td>
                 <td>Rs. <?php echo number_format($item['price'], 2); ?></td>
                 <td><?php echo $item['quantity']; ?></td>

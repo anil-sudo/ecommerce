@@ -2,7 +2,7 @@
 include '../database/dbconnection.php';
 
 // Get first 8 products ordered by ID (ascending)
-$sql = "SELECT * FROM products ORDER BY id ASC LIMIT 8";
+$sql = "SELECT * FROM products WHERE is_deleted = 0 ORDER BY id ASC LIMIT 8";
 $result = $conn->query($sql);
 
 $products = [];

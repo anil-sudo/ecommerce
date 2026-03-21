@@ -124,7 +124,7 @@ if (isset($_GET['search'])) {
     <div class="products-container">
         <?php
         if ($search != "") {
-            $stmt = $conn->prepare("SELECT * FROM products WHERE name LIKE ?");
+            $stmt = $conn->prepare("SELECT * FROM products WHERE name LIKE ? AND is_deleted = 0");
             $term = "%" . $search . "%";
             $stmt->bind_param("s", $term);
             $stmt->execute();

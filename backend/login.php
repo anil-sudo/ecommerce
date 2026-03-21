@@ -20,7 +20,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($result->num_rows == 1) {
         $user = $result->fetch_assoc();
-        if ($password === $user['password']) {
+        // Check if plain text password matches or if the hashed password matches
+        if (password_verify($password, $user['password']) || $password === $user['password']) {
+            // If they signed in with plain-text, forcefully update to hashed
+            if ($password === $user['password'] && !password_get_info($user['password'])['algo']) {
+                $hash = password_hash($password, PASSWORD_DEFAULT);
+                $update_stmt = $conn->prepare("UPDATE admins SET password = ? WHERE id = ?");
+                $update_stmt->bind_param("si", $hash, $user['id']);
+                $update_stmt->execute();
+            }
+
+            session_regenerate_id(true);
             $_SESSION['id'] = $user['id'];
             $_SESSION['name'] = $user['username'];
             $_SESSION['role'] = $user['role'];

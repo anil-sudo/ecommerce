@@ -46,17 +46,26 @@ include 'session_check.php';
                 while ($row = $result->fetch_assoc()) {
                     echo "<tr>";
                     echo "<td>" . $row['id'] . "</td>";
-                    echo "<td><img src='../assets/images/" . $row['image'] . "' alt='product'></td>";
-                    echo "<td>" . $row['name'] . "</td>";
+                    echo "<td><img src='../assets/images/" . htmlspecialchars($row['image'], ENT_QUOTES, 'UTF-8') . "' alt='product'></td>";
+                    
+                    $product_name_display = htmlspecialchars($row['name'], ENT_QUOTES, 'UTF-8');
+                    if ($row['is_deleted'] == 1) {
+                        $product_name_display .= " <span style='color:red; font-size:12px; font-weight:bold;'>(Deleted)</span>";
+                    }
+                    echo "<td>" . $product_name_display . "</td>";
                     echo "<td>Rs." . number_format($row['price'], 2) . "</td>";
                     echo "<td>
                             <a href='update_product.php?id=" . $row['id'] . "'>
                                 <button class='btn btn-edit'>Update</button>
-                            </a>
-                            <a href='delete_product.php?id=" . $row['id'] . "' onclick=\"return confirm('Are you sure?');\">
-                                <button class='btn btn-delete'>Delete</button>
-                            </a>
-                          </td>";
+                            </a>";
+                    if ($row['is_deleted'] == 0) {
+                        echo "
+                            <form action='delete_product.php' method='POST' style='display:inline;' onsubmit=\"return confirm('Are you sure you want to delete this product?');\">
+                                <input type='hidden' name='id' value='" . $row['id'] . "'>
+                                <button type='submit' class='btn btn-delete'>Delete</button>
+                            </form>";
+                    }
+                    echo "</td>";
                     echo "</tr>";
                 }
             } else {

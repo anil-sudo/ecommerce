@@ -7,13 +7,13 @@ $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] :
 $offset = ($page - 1) * $limit;
 
 // Get total number of products
-$totalResult = $conn->query("SELECT COUNT(*) AS total FROM products");
+$totalResult = $conn->query("SELECT COUNT(*) AS total FROM products WHERE is_deleted = 0");
 $totalRow = $totalResult->fetch_assoc();
 $totalProducts = $totalRow['total'];
 $totalPages = ceil($totalProducts / $limit);
 
 // Fetch products with limit
-$sql = "SELECT id, name, price, image FROM products ORDER BY id ASC LIMIT $limit OFFSET $offset";
+$sql = "SELECT id, name, price, image FROM products WHERE is_deleted = 0 ORDER BY id ASC LIMIT $limit OFFSET $offset";
 $result = $conn->query($sql);
 
 if (!$result) {
