@@ -15,7 +15,7 @@ if (!isset($_SESSION['role'])) {
 }
 
 // ✅ STEP 4: Block non-admins from accessing admin panel
-if ($_SESSION['role'] !== 'admin' && $_SESSION['role'] !== 'staff') {
+if ($_SESSION['role'] !== 'admin' && $_SESSION['role'] !== 'editor' && $_SESSION['role'] !== 'staff') {
     header("Location: ../frontend/index.php");
     exit();
 }
