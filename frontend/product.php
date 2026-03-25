@@ -29,6 +29,7 @@ while ($row = $result->fetch_assoc()) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <title>ShopEase | Products</title>
     <link rel="stylesheet" href="../assets/css/style.css">
@@ -68,7 +69,7 @@ while ($row = $result->fetch_assoc()) {
                     <form method="post">
                         <input type="hidden" name="product_id" value="<?php echo $row['id']; ?>">
                         <input type="hidden" name="quantity" value="1">
-                        <button type="submit" name="cart" class="btn-cart">Add to Cart</button>
+                        <button type="submit" name="cart" class="btn-cart" title="Add to Cart"><i class="fa-solid fa-cart-shopping"></i></button>
                     </form>
                 </div>
 
@@ -109,3 +110,4 @@ while ($row = $result->fetch_assoc()) {
 
 </body>
 </html>
+

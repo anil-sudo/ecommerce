@@ -11,106 +11,11 @@ if (isset($_GET['search'])) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <title>Search Results</title>
     <link rel="stylesheet" href="../assets/css/style.css">
-    <style>
-        /* product grid CSS */
-        .products-container {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .product-card {
-            background: #fff;
-            border-radius: 6px;
-            padding: 15px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: none;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-
-        .product-card img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            margin-bottom: 10px;
-        }
-
-        .product-name {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 6px;
-            color: #333;
-        }
-
-        .rating {
-            color: #FFD700;
-            margin-bottom: 10px;
-            font-size: 14px;
-        }
-
-        .price-cart {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 10px;
-        }
-
-        .price-cart .price {
-            color: orange;
-            font-weight: bold;
-            font-size: 16px;
-        }
-
-        .price-cart .btn-cart {
-            background-color: orange;
-            color: #fff;
-            padding: 6px 12px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .price-cart .btn-cart:hover {
-            background-color: darkorange;
-        }
-
-        @media (max-width: 1024px) {
-            .products-container {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .products-container {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .product-card img {
-                height: 160px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .products-container {
-                grid-template-columns: 1fr;
-            }
-            .product-card img {
-                height: 180px;
-            }
-        }
-    </style>
+    
 </head>
 <body>
 
@@ -146,7 +51,7 @@ if (isset($_GET['search'])) {
                                 <input type="hidden" name="name" value="<?php echo htmlspecialchars($product['name']); ?>">
                                 <input type="hidden" name="price" value="<?php echo $product['price']; ?>">
                                 <input type="hidden" name="image" value="<?php echo htmlspecialchars($product['image']); ?>">
-                                <button type="submit" name="cart" class="btn-cart">Add to Cart</button>
+                                <button type="submit" name="cart" class="btn-cart" title="Add to Cart"><i class="fa-solid fa-cart-shopping"></i></button>
                             </form>
                         </div>
                     </div>
@@ -166,3 +71,5 @@ if (isset($_GET['search'])) {
 
 </body>
 </html>
+
+

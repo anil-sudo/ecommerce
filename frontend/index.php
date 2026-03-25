@@ -84,7 +84,7 @@ include '../database/dbconnection.php';
     <!-- Featured Products -->
     <section class="featured-products">
         <h2 class="section-title" style="text-align:center; margin:40px;">Featured Products</h2>
-        <div class="products-container">
+        <div class="best-sellers-container">
             <?php foreach($featuredProducts as $product): ?>
                 <a href="/e-commerce/frontend/product-detail.php?id=<?= $product['id'] ?>" style="text-decoration: none;">
                     <div class="product-card">
@@ -96,7 +96,7 @@ include '../database/dbconnection.php';
                             <form method="post">
                                 <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
                                 <input type="hidden" name="quantity" value="1">
-                                <button type="submit" name="cart" class="btn-cart">Add to Cart</button>
+                                <button type="submit" name="cart" class="btn-cart" title="Add to Cart"><i class="fa-solid fa-cart-shopping"></i></button>
                             </form>
                         </div>
                     </div>    
@@ -130,7 +130,7 @@ include '../database/dbconnection.php';
                     <form method="post">
                         <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
                         <input type="hidden" name="quantity" value="1">
-                        <button type="submit" name="cart" class="btn-cart">Add to Cart</button>
+                        <button type="submit" name="cart" class="btn-cart" title="Add to Cart"><i class="fa-solid fa-cart-shopping"></i></button>
                     </form>
                 </div>
             </div>    
